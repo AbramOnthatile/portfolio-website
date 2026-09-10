@@ -1022,10 +1022,27 @@ p {
   .about-grid,
   .contact-layout,
   .cv-layout,
-  .project-grid,
   .skills-grid,
   .certificate-grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-spotlight {
+    grid-template-columns: 1fr;
+  }
+
+  .spotlight-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .project-card {
+    flex: 1 1 100%;
+    max-width: none;
   }
 
   .hero {
@@ -1074,6 +1091,7 @@ p {
   }
 
   .hero {
+    display: grid;
     grid-template-columns: 1fr;
     min-height: auto;
     text-align: center;
@@ -1091,8 +1109,49 @@ p {
     justify-content: center;
   }
 
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-description,
+  .hero-copy h1,
+  .hero-copy p {
+    max-width: 100%;
+  }
+
+  .profile-shell {
+    width: min(100%, 320px);
+    margin: 0 auto;
+  }
+
   .profile-frame {
-    width: min(280px, 78vw);
+    width: min(260px, 78vw);
+  }
+
+  .quick-card {
+    right: 6px;
+    bottom: 10px;
+    width: min(180px, 48vw);
+    padding: 12px 14px;
+  }
+
+  .spotlight-stack,
+  .project-grid,
+  .skills-grid,
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    gap: 18px;
+  }
+
+  .project-card {
+    min-width: 0;
+  }
+
+  .project-content {
+    padding: 18px 16px 16px;
   }
 
   .footer-inner,
