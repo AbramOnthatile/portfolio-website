@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Abram Onthatile Mohlamonyane</title>
+    <meta name="description" content="Contact Abram Onthatile Mohlamonyane, a junior software developer and ICT graduate focused on full-stack development and AI-powered solutions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <nav class="nav container" aria-label="Main navigation">
+          <a class="brand" href="/" aria-label="Abram Mohlamonyane home">
+            <span class="brand-mark">A</span>
+            <span class="brand-text">Abram</span>
+          </a>
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="nav-menu" id="nav-menu">
+            <a href="/">HOME</a>
+            <a href="/about/">ABOUT</a>
+            <a href="/projects/">PROJECTS</a>
+            <a href="/skills/">SKILLS</a>
+            <a href="/certificates/">CERTIFICATES</a>
+            <a href="/cv/">CV</a>
+            <a href="/contact/">CONTACT</a>
+          </div>
+        </nav>
+      </header>
+
+      <main class="container section">
+        <section class="section-heading reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>LET'S CONNECT ABOUT SOFTWARE PROJECTS AND OPPORTUNITIES.</h2>
+        </section>
+
+        <div class="contact-layout reveal">
+          <form class="contact-form" id="contactForm">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="Your email" />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="6" placeholder="Tell me about your opportunity or project"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+
+          <aside class="social-panel">
+            <a class="social-link" href="mailto:onthatileabram@gmail.com">
+              <span>Email</span>
+              <small>Contact through email</small>
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/in/onthatile-mohlamonyane" target="_blank" rel="noreferrer">
+              <span>LinkedIn</span>
+              <small>Professional profile</small>
+            </a>
+            <a class="social-link" href="https://github.com/abramonthatile" target="_blank" rel="noreferrer">
+              <span>GitHub</span>
+              <small>Projects and code</small>
+            </a>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div>
+            <p class="footer-name">ABRAM ONTHATILE MOHLAMONYANE</p>
+            <p class="footer-role">Junior Software Developer<br />Full-Stack Developer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://github.com/abramonthatile" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/onthatile-mohlamonyane" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="mailto:onthatileabram@gmail.com">Email</a>
+          </div>
+        </div>
+        <div class="container footer-bottom">
+          <p>© 2026 Abram Onthatile Mohlamonyane</p>
+        </div>
+      </footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/script.js"></script>
+  </body>
+</html>
