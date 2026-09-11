@@ -459,8 +459,27 @@ p {
   padding: 16px 18px;
   border: 1px solid rgba(143, 105, 255, 0.32);
   border-radius: 18px;
-  background: rgba(9, 14, 25, 0.9);
+  background: rgba(9, 14, 25, 0.6);
   box-shadow: 0 16px 38px rgba(10, 16, 26, 0.7);
+}
+
+.quick-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background-image: url("assets/profile-photo.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  filter: blur(2px) saturate(0.9);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.quick-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .quick-card-label {
