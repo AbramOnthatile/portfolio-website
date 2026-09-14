@@ -1147,8 +1147,14 @@ p {
   }
 
   .profile-shell {
-    width: min(100%, 320px);
+    width: min(100%, 340px);
+    height: min(430px, 62vw);
     margin: 0 auto;
+  }
+
+  .profile-shell--plain {
+    width: min(100%, 340px);
+    height: min(430px, 62vw);
   }
 
   .profile-frame {
@@ -1158,7 +1164,7 @@ p {
   .quick-card {
     right: 6px;
     bottom: 10px;
-    width: min(180px, 48vw);
+    width: min(200px, 54vw);
     padding: 12px 14px;
   }
 
