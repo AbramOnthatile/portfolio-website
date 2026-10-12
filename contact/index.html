@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Contact | Abram Onthatile Mohlamonyane</title>
     <meta name="description" content="Contact Abram Onthatile Mohlamonyane, a junior software developer and ICT graduate focused on full-stack development and AI-powered solutions." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=20261012" />
   </head>
   <body>
     <div class="page-shell">
@@ -53,6 +56,7 @@
               <span>Message</span>
               <textarea name="message" rows="6" placeholder="Tell me about your opportunity or project"></textarea>
             </label>
+            <div class="form-status" id="contactFormStatus" aria-live="polite" hidden></div>
             <button class="btn btn-primary" type="submit">Send Message</button>
           </form>
 
@@ -91,6 +95,6 @@
       </footer>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="../script.js"></script>
+    <script src="../script.js?v=20261012"></script>
   </body>
 </html>

@@ -1,0 +1,221 @@
+const certificateFiles = import.meta.glob('../certificates/*.pdf', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
+
+const certificateUrl = (fileName) => {
+  const entry = Object.entries(certificateFiles).find(([path]) => path.endsWith(fileName));
+  return entry?.[1] ?? '#';
+};
+
+export const profileImage = new URL('../assets/profile.jpeg', import.meta.url).href;
+export const cvFile = new URL('../cv/abram-onthatile-mohlamonyane-CV-v20261012.pdf', import.meta.url).href;
+
+export const projects = [
+  {
+    slug: 'unidigital',
+    name: 'UniDigital — Digital Student Card',
+    badge: 'SYSTEM',
+    art: 'identity',
+    summary: 'A student identity and campus-access system built to make everyday access workflows more efficient.',
+    categories: ['fullstack', 'web', 'backend', 'frontend'],
+    technologies: ['Spring Boot', 'MySQL', 'NFC', 'REST APIs'],
+    overview: 'UniDigital is a digital student card and campus access project designed to improve how student identity and access are managed on campus.',
+    role: 'I contributed to developing a practical student-access solution focused on streamlined identity validation and a clear experience for everyday campus operations.',
+    developed: 'A digital identity concept supporting student profile access, verification workflows, and campus-related functionality in a more efficient format.',
+    problem: 'Traditional identification and access systems can be slow and rigid when institutions need efficient digital workflows.',
+    solution: 'A digital-first approach to student identity, combining a modern interface with backend support to improve access and operational consistency.',
+    features: ['Student profile and identity handling', 'Campus access workflow', 'Structured backend data model', 'Secure, centralised system design'],
+    process: 'Mapped core workflows, designed the system structure, and implemented digital access functionality with a focus on clarity and reliability.',
+    challenge: 'Balancing practical campus access functionality with a clean, manageable system design for real-world use.',
+    learned: 'I improved my understanding of backend systems, access workflows, and secure, user-friendly digital identity tools.',
+    repository: 'https://github.com/SandileSibiya/Project3-UniDigital.git'
+  },
+  {
+    slug: 'animewear',
+    name: 'AnimeWear / Anime Store',
+    badge: 'COMMERCE',
+    art: 'store',
+    summary: 'A full-stack merchandise store with product discovery, cart, account, review, and administration workflows.',
+    categories: ['fullstack', 'web', 'backend', 'frontend'],
+    technologies: ['React', 'Spring Boot', 'MySQL', 'REST APIs'],
+    overview: 'AnimeWear is an e-commerce application for anime-themed merchandise, built to support store browsing, user interactions, and order-related operations.',
+    role: 'I worked on building a full-stack shopping experience with emphasis on user-facing storefront functionality, product logic, and backend support for store operations.',
+    developed: 'The store experience, including product presentation, user interaction flows, cart-related functionality, and data handling for shopping.',
+    problem: 'Online stores need a clear, reliable way to present products, manage customer interactions, and support orders without a confusing experience.',
+    solution: 'A practical full-stack store where customers can browse products, interact with the platform, and complete shopping tasks in a clear workflow.',
+    features: ['Product listings and catalog display', 'Shopping cart and purchase flow', 'User accounts and reviews', 'Admin-ready product management'],
+    process: 'Combined frontend design with backend logic so product data, user actions, and store features work together coherently.',
+    challenge: 'Keeping the storefront attractive and functional while maintaining consistent flows between the UI and backend data.',
+    learned: 'I strengthened my understanding of e-commerce architecture, user-flow design, and full-stack application behavior.',
+    repository: 'https://github.com/NinziSiganeko/animestore.git'
+  },
+  {
+    slug: 'hoodline',
+    name: 'Hoodline E-Commerce',
+    badge: 'COMMERCE',
+    art: 'fashion',
+    summary: 'A clothing storefront demonstrating product listings, authentication, order handling, and admin functionality.',
+    categories: ['fullstack', 'web', 'backend', 'frontend'],
+    technologies: ['Django', 'React', 'Python', 'Authentication'],
+    overview: 'Hoodline is a clothing e-commerce project built to demonstrate a complete storefront workflow with product listing, user access, orders, and admin functionality.',
+    role: 'I worked as a developer building a practical online shopping experience with attention to user flow, product structure, and system reliability.',
+    developed: 'The storefront and commerce workflow, including product browsing, order handling, and the interface structure required for an e-commerce platform.',
+    problem: 'Online shops can feel fragmented when product management, authentication, and order handling are not unified into a clear system.',
+    solution: 'Core e-commerce building blocks are brought together so users can browse, purchase, and manage transactions in a clearer way.',
+    features: ['Product catalog and store layout', 'User authentication and account access', 'Order handling and admin management', 'Storefront UI and interaction flow'],
+    process: 'Used a practical full-stack approach, combining frontend design and backend data handling to simulate a functioning storefront.',
+    challenge: 'Creating a consistent shopping experience while making authentication, order logic, and the product model work smoothly together.',
+    learned: 'I developed stronger skills in full-stack commerce systems and aligning user experience with backend logic.',
+    repository: 'https://github.com/AbramOnthatile/local-clothing.git'
+  },
+  {
+    slug: 'sentix',
+    name: 'SentiX — AI Sentiment Intelligence',
+    badge: 'AI / NLP',
+    art: 'sentiment',
+    summary: 'An AI-powered review analysis experience that turns customer feedback into clear sentiment and product insight.',
+    categories: ['ai', 'web', 'frontend', 'fullstack'],
+    technologies: ['Python', 'AI', 'Sentiment Analysis', 'JavaScript', 'HTML', 'CSS'],
+    overview: 'SentiX is an AI-powered sentiment analysis project designed to turn customer reviews into clear, useful insights and help users identify meaningful feedback patterns.',
+    role: 'I shaped the user-facing review-analysis experience, structured the workflow, and focused on making AI output clear and practical.',
+    developed: 'A review-analysis interface for exploring sentiment, identifying recurring themes, and interpreting customer feedback in an accessible way.',
+    problem: 'Businesses receive large volumes of customer feedback, but extracting sentiment and actionable themes from raw reviews is difficult and time-consuming.',
+    solution: 'An AI-informed workflow processes review data, identifies sentiment patterns, and helps users understand relevant feedback more quickly.',
+    features: ['Review-based sentiment analysis', 'Feedback and theme interpretation', 'Insight-oriented dashboard presentation', 'AI-assisted review understanding'],
+    process: 'Translated a business problem into a working web interface, designed the interaction model, and presented key insights clearly.',
+    challenge: 'Turning unstructured review content into meaningful insight without overloading users with complex data.',
+    learned: 'I strengthened my understanding of AI-driven product design, frontend interaction patterns, and turning review data into usable outputs.',
+    repository: 'https://github.com/cherish-n27/SentiX'
+  },
+  {
+    slug: 'pathfinder-ai',
+    name: 'PathFinder AI',
+    badge: 'AI PRODUCT',
+    art: 'pathfinder',
+    summary: 'An AI-assisted career and project pathway tool that maps user interests to practical next steps.',
+    categories: ['ai', 'web', 'frontend'],
+    technologies: ['AI', 'Python', 'JavaScript', 'UX Design', 'Web Interface'],
+    overview: 'PathFinder AI is an AI-focused application prototype created to solve a real-world problem through a simple, practical user experience.',
+    role: 'I helped shape the product idea into a working interface and kept the user journey clear, helpful, and easy to understand.',
+    developed: 'An AI-assisted user flow that helps people move through a problem-solving process in a structured and accessible way.',
+    problem: 'People benefit from support tools that are simple, practical, and aligned with the challenge they are trying to solve.',
+    solution: 'An AI-assisted workflow illustrates how intelligent tools can support problem solving in a practical, accessible way.',
+    features: ['AI-driven problem-solving flow', 'User-focused interface', 'Practical real-world use case', 'Clear concept validation'],
+    process: 'Identified a user need, designed a usable interaction, implemented the concept, and refined the product around the experience.',
+    challenge: 'Balancing technical capability with simplicity so the AI flow stayed useful and understandable.',
+    learned: 'I gained a stronger understanding of shaping AI tools around user problems and communicating product value clearly.',
+    repository: 'https://github.com/AbramOnthatile/Path_Finder.git',
+    demo: 'https://pathfinder-oput7928.manus.space/'
+  },
+  {
+    slug: 'product-review',
+    name: 'Product Review Intelligence',
+    badge: 'AI / DATA',
+    art: 'analytics',
+    summary: 'A review-analysis workflow for identifying customer sentiment, recurring themes, and product feedback.',
+    categories: ['ai', 'web', 'frontend'],
+    technologies: ['Python', 'Sentiment Analysis', 'AI Insights', 'JavaScript', 'Product Feedback'],
+    overview: 'Product Review Intelligence helps users understand customer sentiment and product feedback by turning review data into a usable, actionable summary.',
+    role: 'I focused on building the review-analysis workflow, shaping the product experience, and presenting sentiment insights clearly.',
+    developed: 'An analysis experience for reviewing sentiment trends, identifying common feedback themes, and understanding customer comments faster.',
+    problem: 'Review collections are noisy and difficult to turn into actionable product feedback, especially across many comments.',
+    solution: 'A structured review-analysis workflow interprets feedback, identifies patterns, and presents sentiment insights in a clear format.',
+    features: ['Customer review analysis', 'Sentiment classification', 'Product feedback extraction', 'Insight-focused interface'],
+    process: 'Moved from review collection to interpretation and presentation through a simple product view and practical application structure.',
+    challenge: 'Filtering and interpreting varied product comments into meaningful summaries required clear presentation of results.',
+    learned: 'I strengthened my ability to work with feedback data, extract patterns, and present results usefully.'
+  },
+  {
+    slug: 'spam-detect',
+    name: 'Spam Detect',
+    badge: 'MACHINE LEARNING',
+    art: 'signal',
+    summary: 'A Python text-classification workflow for distinguishing spam from legitimate messages.',
+    categories: ['ai', 'backend', 'web'],
+    technologies: ['Python', 'Machine Learning', 'Text Analysis', 'Classification'],
+    overview: 'Spam Detect is a Python-based text-classification project designed to identify whether a message is likely spam or legitimate content.',
+    role: 'I contributed to the model workflow, prepared text data, and implemented a practical classification approach.',
+    developed: 'A workflow that processes message text and applies classification to distinguish spam from non-spam content.',
+    problem: 'Spam messages create noise and reduce trust in communication systems, so unwanted content needs to be filtered reliably.',
+    solution: 'Text-processing and classification concepts are used to review message content and determine whether it matches spam characteristics.',
+    features: ['Text preprocessing', 'Message classification logic', 'Spam and legitimate content detection', 'Practical Python ML workflow'],
+    process: 'Prepared data, interpreted features, and implemented a classification approach that makes decisions from message patterns.',
+    challenge: 'Interpreting text features so the system could recognise meaningful differences between spam and normal messages.',
+    learned: 'I strengthened my understanding of Python machine learning, text processing, and practical classification workflows.',
+    repository: 'https://github.com/AbramOnthatile/spamDectect.git'
+  },
+  {
+    slug: 'banking',
+    name: 'Python Banking Application',
+    badge: 'PYTHON',
+    art: 'ledger',
+    summary: 'An educational banking application demonstrating accounts, transaction handling, and basic persistence.',
+    categories: ['backend'],
+    technologies: ['Python', 'Flask', 'SQLite'],
+    overview: 'A simple demonstration of account management, transaction handling, and basic persistence for educational purposes.',
+    role: 'I implemented the core account models, transaction processing logic, and an interface demonstrating deposit, withdrawal, and transfer flows.',
+    developed: 'Account creation, balance queries, deposits, withdrawals, and transfer operations with basic validation and error handling.',
+    features: ['Account management', 'Deposit and withdrawal flows', 'Transfers and balance queries', 'Validation and error handling'],
+    repository: 'https://github.com/AbramOnthatile/bankBanking.git'
+  },
+  {
+    slug: 'sudoku',
+    name: 'Sudoku Game',
+    badge: 'GAME LOGIC',
+    art: 'grid',
+    summary: 'A Java puzzle game focused on board rules, move validation, and a playable solving flow.',
+    categories: ['backend', 'frontend'],
+    technologies: ['Java', 'Puzzle Logic', 'Game Development', 'UI Interaction'],
+    overview: 'A Java-based puzzle project built around classic logic and board validation, demonstrating structured game development and problem-solving.',
+    role: 'I contributed to implementing the core puzzle logic, validating board rules, and creating a playable experience.',
+    developed: 'The gameplay structure, including number placement rules, validation logic, and a playable board flow.',
+    problem: 'Games require precise rules and reliable logic so every action is valid and gameplay remains consistent.',
+    solution: 'The game mechanics are implemented in a clean, testable way that supports valid moves and logical progression.',
+    features: ['Sudoku board and number logic', 'Move validation rules', 'Playable puzzle flow', 'Interactive game structure'],
+    process: 'Translated Sudoku rules into code, built the board mechanics, and checked that the game logic behaved consistently.',
+    challenge: 'Ensuring each move followed the correct row, column, and subsection rules.',
+    learned: 'I improved my understanding of game logic, rule validation, and structured Java applications.',
+    repository: 'https://github.com/AbramOnthatile/soduko.git'
+  },
+  {
+    slug: 'uno',
+    name: 'UNO Game',
+    badge: 'GAME LOGIC',
+    art: 'cards',
+    summary: 'A Java card game implementing turn progression, card rules, and consistent game-state behavior.',
+    categories: ['backend', 'frontend'],
+    technologies: ['Java', 'Game Logic', 'Card Mechanics', 'Turn System'],
+    overview: 'A Java-based card game built to replicate familiar gameplay rules and turn-based interactions in a structured form.',
+    role: 'I worked on the game logic and interaction flow, shaping a playable version of card mechanics and turn progression.',
+    developed: 'The card-game flow, including turn handling, rule enforcement, and logic for smooth player interaction.',
+    problem: 'Card games need consistent rules and clear turns to feel fair and playable when multiple actions are involved.',
+    solution: 'Core UNO mechanics are implemented so turn-based play and card rules remain consistent throughout the game.',
+    features: ['Turn-based gameplay', 'Card matching and validation', 'Game-state progression', 'Interactive player flow'],
+    process: 'Translated game rules into object-based logic and created a consistent flow for player turns and card validation.',
+    challenge: 'Ensuring card rules and turn sequence matched the intended gameplay logic.',
+    learned: 'I developed stronger skills in game-state design, rule-driven programming, and interactive application logic.',
+    repository: 'https://github.com/AbramOnthatile/uno.git'
+  }
+];
+
+export const skillGroups = [
+  { name: 'Frontend', icon: 'bi-window', items: ['HTML', 'CSS', 'JavaScript', 'React', 'Bootstrap'] },
+  { name: 'Backend', icon: 'bi-hdd-network', items: ['Java', 'Spring Boot', 'Python', 'Django', 'Flask'] },
+  { name: 'Databases', icon: 'bi-database', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'SQLite'] },
+  { name: 'AI & Data', icon: 'bi-cpu', items: ['Python', 'Machine Learning', 'Sentiment Analysis', 'Data Handling'] },
+  { name: 'Workflow', icon: 'bi-diagram-3', items: ['Git', 'GitHub', 'REST APIs', 'UI/UX'] },
+  { name: 'Core strengths', icon: 'bi-lightning-charge', items: ['Problem solving', 'Clean code', 'Debugging', 'Learning'] }
+];
+
+export const certificates = [
+  { title: 'Diploma Completion Letter', organisation: 'Cape Peninsula University of Technology', detail: 'ICT Application Development', type: 'Main credential', file: 'Diploma-Completion Letter.pdf' },
+  { title: 'Google AI Essentials Specialization', organisation: 'Google', detail: 'AI learning certification', type: 'Credential', file: 'Google AI Essentials Specialization.pdf' },
+  { title: 'Python for Data Science, AI & Development', organisation: 'IBM / Coursera', detail: 'Python and AI fundamentals', type: 'Training', file: 'Python for Data Science, AI & Development.pdf' },
+  { title: 'Introduction to Artificial Intelligence (AI)', organisation: 'AI Foundations', detail: 'AI concepts and applications', type: 'Skill path', file: 'Introduction to Artificial Intelligence (AI).pdf' },
+  { title: 'Generative AI with Large Language Models', organisation: 'AI and LLM learning path', detail: 'Prompting and model workflows', type: 'Professional growth', file: 'Generative AI with Large Language Models.pdf' },
+  { title: 'Supervised Machine Learning', organisation: 'Machine learning fundamentals', detail: 'Regression and classification', type: 'Learning', file: 'Supervised Machine Learning.pdf' },
+  { title: 'Unsupervised Learning', organisation: 'Machine learning fundamentals', detail: 'Clustering and patterns', type: 'Learning', file: 'Unsupervised Learning.pdf' },
+  { title: 'Discover the Art of Prompting', organisation: 'Prompt engineering', detail: 'Practical prompting skills', type: 'Learning', file: 'Discover the Art of Prompting.pdf' }
+].map((certificate) => ({ ...certificate, url: certificateUrl(certificate.file) }));

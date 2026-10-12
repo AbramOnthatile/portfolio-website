@@ -1,0 +1,28 @@
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #eaf1f7;
+  background: #0b111a;
+}
+
+body {
+  margin: 0;
+  background: #0b111a;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.app-shell {
+  min-height: 100vh;
+  color: #eaf1f7;
+}
+
+.eyebrow {
+  color: #42c5e8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}

@@ -1,5 +1,26 @@
 const toast = document.getElementById('toast');
 
+const setupHeaderScroll = () => {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+};
+
+const setupToastTriggers = () => {
+  document.querySelectorAll('[data-toast]').forEach((element) => {
+    element.addEventListener('click', () => {
+      const message = element.dataset.toast || 'Action triggered';
+      showToast(message);
+    });
+  });
+};
+
 const showToast = (message) => {
   if (!toast) return;
   toast.textContent = message;
@@ -159,11 +180,67 @@ const setupProjectFilters = () => {
   applyFilter('all');
 };
 
+const setupProjectDrawer = () => {
+  const drawer = document.getElementById('projectDrawer');
+  const title = document.getElementById('drawerTitle');
+  const summary = document.getElementById('drawerSummary');
+  const tags = document.getElementById('drawerTags');
+  const action = document.getElementById('drawerAction');
+
+  if (!drawer || !title || !summary || !tags || !action) return;
+
+  const closeDrawer = () => {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+  };
+
+  document.querySelectorAll('.project-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const card = trigger.closest('.project-card');
+      if (!card) return;
+
+      const projectName = card.dataset.projectName || 'Project';
+      const projectSummary = card.dataset.projectSummary || 'Project overview';
+      const projectDescription = card.dataset.projectDescription || card.dataset.projectSummary || 'Project overview';
+      const projectTags = (card.dataset.projectTags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
+      const projectLink = card.dataset.projectLink || '#';
+
+      title.textContent = projectName;
+      summary.textContent = projectDescription || projectSummary;
+      tags.innerHTML = projectTags.map((tag) => `<span>${tag}</span>`).join('');
+      action.href = projectLink;
+      action.textContent = 'Open project';
+
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      showToast(`${projectName} opened`);
+    });
+  });
+
+  document.querySelectorAll('[data-close-drawer="true"]').forEach((element) => {
+    element.addEventListener('click', closeDrawer);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
+};
+
 const setupContactForm = () => {
   const form = document.getElementById('contactForm');
+  const status = document.getElementById('contactFormStatus');
   if (!form) return;
 
-  form.addEventListener('submit', (event) => {
+  if (status) {
+    status.hidden = true;
+    status.style.display = 'none';
+    status.classList.remove('error');
+    status.textContent = '';
+  }
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
@@ -171,40 +248,80 @@ const setupContactForm = () => {
     const email = (formData.get('email') || '').toString().trim();
     const message = (formData.get('message') || '').toString().trim();
 
-    if (!name && !email && !message) {
-      showToast('Please fill in the form before sending.');
+    if (!name || !email || !message) {
+      showToast('Please fill in your name, email, and message before sending.');
+      if (status) {
+        status.hidden = false;
+        status.style.display = 'flex';
+        status.textContent = 'Please complete all fields before sending.';
+        status.classList.add('error');
+      }
       return;
     }
 
-    const subject = encodeURIComponent(name ? `Portfolio enquiry from ${name}` : 'Portfolio enquiry');
-    const body = encodeURIComponent(
-      [
-        name ? `Name: ${name}` : '',
-        email ? `Email: ${email}` : '',
-        '',
-        message || 'Hello, I would like to connect with you.'
-      ].filter(Boolean).join('\n')
-    );
+    if (status) {
+      status.hidden = false;
+      status.style.display = 'flex';
+      status.classList.remove('error');
+      status.textContent = 'Sending your message...';
+    }
 
-    const mailtoLink = `mailto:onthatileabram@gmail.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-    form.reset();
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/onthatileabram@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `Portfolio enquiry from ${name}`
+        })
+      });
 
-    setTimeout(() => {
-      const confirmed = window.confirm('Your email app has opened. Did you send the message?');
-      showToast(
-        confirmed
-          ? 'Thank you. Your email was sent.'
-          : 'Your email app opened. Please send the message manually if needed.'
-      );
-    }, 500);
+      if (!response.ok) {
+        throw new Error('Send failed');
+      }
+
+      form.reset();
+
+      if (status) {
+        status.hidden = false;
+        status.style.display = 'flex';
+        status.classList.remove('error');
+        status.textContent = 'Message sent successfully.';
+      }
+
+      showToast('Message sent successfully.');
+    } catch (error) {
+      if (status) {
+        status.hidden = false;
+        status.style.display = 'flex';
+        status.textContent = 'Unable to send right now. Please email onthatileabram@gmail.com directly.';
+        status.classList.add('error');
+      }
+      showToast('Message could not be sent. Please try again or email directly.');
+    }
   });
 };
 
 setActiveNav();
+setupHeaderScroll();
+setupToastTriggers();
 setupPlaceholderLinks();
 setupMobileMenu();
 setupProjectFilters();
+setupProjectDrawer();
 setupContactForm();
 setupCertificateModal();
 revealOnScroll();
+
+const legacyScriptUrl = new URL('.', document.currentScript.src);
+const legacyPath = window.location.pathname.slice(legacyScriptUrl.pathname.length).split('/').filter(Boolean);
+const legacyRoute = legacyPath.filter((part) => part !== 'index.html').join('/');
+
+if (legacyRoute) {
+  window.location.replace(`${legacyScriptUrl.pathname}#/${legacyRoute}`);
+}

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found | Abram Mohlamonyane</title>
+    <script>
+      const routeNames = ['about', 'projects', 'skills', 'certificates', 'cv', 'contact'];
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      const routeIndex = pathParts.findIndex((part) => routeNames.includes(part));
+      const baseParts = routeIndex < 0 ? pathParts.slice(0, -1) : pathParts.slice(0, routeIndex);
+      const routeParts = routeIndex < 0 ? [] : pathParts.slice(routeIndex);
+      const basePath = `/${baseParts.length ? `${baseParts.join('/')}/` : ''}`;
+      const route = routeParts.join('/');
+      window.location.replace(`${basePath}#/${route}`);
+    </script>
+  </head>
+  <body>
+    <p>This page moved. <a href="./">Return to Abram&apos;s portfolio</a>.</p>
+  </body>
+</html>
