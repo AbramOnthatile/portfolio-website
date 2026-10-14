@@ -32,6 +32,9 @@ export default function ProjectCard({ project }) {
         <Button as={Link} to={`/projects/${project.slug}`} variant="outline-light" className="project-link mt-auto">
           Explore project <i className="bi bi-arrow-right" aria-hidden="true" />
         </Button>
+        {project.demo && <Button href={project.demo} target="_blank" rel="noreferrer" variant="outline-light" className="project-link mt-2">
+          Live demo <i className="bi bi-arrow-up-right" aria-hidden="true" />
+        </Button>}
       </Card.Body>
     </Card>
   );

@@ -665,6 +665,13 @@ p {
     linear-gradient(120deg, #0a1629, #17345b 45%, #0d1222);
 }
 
+.visual-spam {
+  background:
+    linear-gradient(135deg, rgba(7, 17, 20, 0.58), rgba(15, 64, 62, 0.28)),
+    radial-gradient(circle at 28% 18%, rgba(86, 214, 203, 0.35), transparent 30%),
+    linear-gradient(120deg, #081b1e, #123f3c 48%, #0d1b23);
+}
+
 .visual-pathfinder {
   background:
     linear-gradient(135deg, rgba(8, 17, 27, 0.4), rgba(49, 30, 73, 0.25)),

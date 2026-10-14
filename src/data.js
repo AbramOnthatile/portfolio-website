@@ -68,7 +68,8 @@ export const projects = [
     process: 'Used a practical full-stack approach, combining frontend design and backend data handling to simulate a functioning storefront.',
     challenge: 'Creating a consistent shopping experience while making authentication, order logic, and the product model work smoothly together.',
     learned: 'I developed stronger skills in full-stack commerce systems and aligning user experience with backend logic.',
-    repository: 'https://github.com/AbramOnthatile/local-clothing.git'
+    repository: 'https://github.com/AbramOnthatile/local-clothing.git',
+    demo: 'https://hoodlinelocal.netlify.app/'
   },
   {
     slug: 'sentix',
@@ -87,7 +88,8 @@ export const projects = [
     process: 'Translated a business problem into a working web interface, designed the interaction model, and presented key insights clearly.',
     challenge: 'Turning unstructured review content into meaningful insight without overloading users with complex data.',
     learned: 'I strengthened my understanding of AI-driven product design, frontend interaction patterns, and turning review data into usable outputs.',
-    repository: 'https://github.com/cherish-n27/SentiX'
+    repository: 'https://github.com/cherish-n27/SentiX',
+    demo: 'https://sentix-kohl.vercel.app/'
   },
   {
     slug: 'pathfinder-ai',
@@ -145,6 +147,26 @@ export const projects = [
     challenge: 'Interpreting text features so the system could recognise meaningful differences between spam and normal messages.',
     learned: 'I strengthened my understanding of Python machine learning, text processing, and practical classification workflows.',
     repository: 'https://github.com/AbramOnthatile/spamDectect.git'
+  },
+  {
+    slug: 'ai-kitchen-recipe-generator',
+    name: 'AI Kitchen Recipe Generator',
+    badge: 'AI PRODUCT',
+    art: 'pathfinder',
+    summary: 'A recipe-generation app that turns available ingredients into practical meal suggestions with a friendly, useful interface.',
+    categories: ['ai', 'web', 'frontend'],
+    technologies: ['JavaScript', 'AI', 'Recipe Generation', 'UX Design', 'Netlify'],
+    overview: 'AI Kitchen Recipe Generator is a practical AI-powered cooking assistant that helps users discover recipes based on ingredients they already have.',
+    role: 'I built the frontend experience and shaped the product flow so the recipe suggestions feel clear, useful, and easy to use.',
+    developed: 'An interactive recipe generator that accepts ingredients, creates meal suggestions, and presents them in a clean, accessible format.',
+    problem: 'People often want meal ideas without needing to search extensively, especially when they are working with ingredients they already have at home.',
+    solution: 'A lightweight AI-assisted experience that transforms input ingredients into practical recipe suggestions and encourages quick decision-making.',
+    features: ['Ingredient-based recipe suggestions', 'User-friendly recipe output', 'Accessible interface for quick use', 'Practical AI-assisted cooking workflow'],
+    process: 'Designed a simple user journey, translated it into a clear interface, and focused on making recipe suggestions useful and approachable.',
+    challenge: 'Creating a helpful AI product experience that feels intuitive without overwhelming the user with too much complexity.',
+    learned: 'I strengthened my understanding of AI product design, user-friendly interaction patterns, and building useful tools around real-life needs.',
+    repository: 'https://github.com/AbramOnthatile/AI-Kitchen-Recipe-Generator.git',
+    demo: 'https://ai-kitchen-recipe-generator.netlify.app/'
   },
   {
     slug: 'banking',

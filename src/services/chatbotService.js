@@ -25,9 +25,44 @@ const safeLink = (link) => {
 
 const linksFrom = (...links) => links.flat(Infinity).map(safeLink).filter(Boolean);
 
-const formatSkills = (groups) => groups
-  .map(({ category, items }) => `${category}: ${items.join(', ')}`)
+const formatSkills = (groups) => (groups || [])
+  .map(({ category, items = [] }) => `${category}: ${items.join(', ')}`)
   .join('\n');
+
+const normaliseKnowledge = (knowledge = {}) => {
+  const source = knowledge && typeof knowledge === 'object' ? knowledge : {};
+  const profile = source.profile && typeof source.profile === 'object' ? source.profile : {};
+  const links = source.links && typeof source.links === 'object' ? source.links : {};
+
+  return {
+    profile: {
+      name: profile.name || '',
+      role: profile.role || '',
+      background: profile.background || '',
+      education: Array.isArray(profile.education) ? profile.education : [],
+      experience: profile.experience || ''
+    },
+    skills: Array.isArray(source.skills) ? source.skills : [],
+    languages: Array.isArray(source.languages) ? source.languages : [],
+    projects: Array.isArray(source.projects) ? source.projects : [],
+    technologyAliases: Array.isArray(source.technologyAliases) ? source.technologyAliases : [],
+    links: {
+      cv: links.cv || null,
+      github: links.github || null,
+      linkedIn: links.linkedIn || null,
+      email: links.email || null
+    }
+  };
+};
+
+const hasKnowledgeContent = (knowledge) => Boolean(
+  (knowledge.profile && (knowledge.profile.name || knowledge.profile.background || knowledge.profile.role || (Array.isArray(knowledge.profile.education) && knowledge.profile.education.length > 0))) ||
+  (Array.isArray(knowledge.skills) && knowledge.skills.length > 0) ||
+  (Array.isArray(knowledge.languages) && knowledge.languages.length > 0) ||
+  (Array.isArray(knowledge.projects) && knowledge.projects.length > 0) ||
+  (Array.isArray(knowledge.technologyAliases) && knowledge.technologyAliases.length > 0) ||
+  Object.values(knowledge.links || {}).some(Boolean)
+);
 
 const matchProject = (query, knowledge) => knowledge.projects.find((project) =>
   [project.name, project.slug, ...(project.aliases || [])].some((name) => includesPhrase(query, name))
@@ -51,7 +86,7 @@ const findUnknownProject = (query) => {
   return normalise(query).split(' ').filter((word) => !ignored.has(word)).join(' ').trim();
 };
 
-const projectSummary = (project) => `${project.name}: ${project.description} Technologies: ${project.technologies.join(', ')}.`;
+const projectSummary = (project) => `${project.name}: ${project.description || 'No description provided.'} Technologies: ${(project.technologies || []).join(', ') || 'not listed'}.`;
 
 const projectLinks = (project) => linksFrom(
   { label: 'Project details', href: project.detailUrl },
@@ -59,23 +94,30 @@ const projectLinks = (project) => linksFrom(
   project.demo && { label: 'Live demo', href: project.demo }
 );
 
-const skillsForTechnology = (technology, knowledge) => knowledge.skills
-  .filter((group) => group.items.some((item) => normalise(item) === normalise(technology)))
-  .map((group) => ({ category: group.category, items: group.items.filter((item) => normalise(item) === normalise(technology)) }));
+const skillsForTechnology = (technology, knowledge) => (knowledge.skills || [])
+  .filter((group) => (group.items || []).some((item) => normalise(item) === normalise(technology)))
+  .map((group) => ({ category: group.category, items: (group.items || []).filter((item) => normalise(item) === normalise(technology)) }));
 
 const answerProjects = (projects, lead = 'Here are the matching documented projects:') => ({
-  text: `${lead}\n${projects.map(projectSummary).join('\n')}`,
-  links: linksFrom(projects.map(projectLinks))
+  text: `${lead}\n${(projects || []).map(projectSummary).join('\n') || 'No documented projects are available at the moment.'}`,
+  links: linksFrom((projects || []).map(projectLinks))
 });
 
 export function getChatbotReply(input, knowledge) {
+  const resolvedKnowledge = normaliseKnowledge(knowledge);
   const rawQuestion = String(input ?? '').slice(0, 500);
   const query = normalise(rawQuestion);
 
   if (!query) return { text: 'Please enter a question about the portfolio.', links: [] };
+  if (!hasKnowledgeContent(resolvedKnowledge)) {
+    return {
+      text: 'I’m a rule-based portfolio helper, so I can answer questions about Abram’s background, skills, projects, education, CV, and contact links. Try one of the suggested questions.',
+      links: []
+    };
+  }
 
-  const namedProject = matchProject(query, knowledge);
-  const technologies = matchingTechnologies(query, knowledge);
+  const namedProject = matchProject(query, resolvedKnowledge);
+  const technologies = matchingTechnologies(query, resolvedKnowledge);
   const asksForProjects = isProjectQuestion(query) || matchesAny(query, ['which projects', 'show me projects', 'projects use', 'projects built with', 'projects using']);
 
   if (namedProject) {
@@ -87,7 +129,7 @@ export function getChatbotReply(input, knowledge) {
 
   if (asksForProjects && technologies.length > 0) {
     const requested = new Set(technologies.map(({ name }) => normalise(name)));
-    const matches = knowledge.projects.filter((project) => project.technologies.some((technology) => requested.has(normalise(technology))));
+    const matches = resolvedKnowledge.projects.filter((project) => (project.technologies || []).some((technology) => requested.has(normalise(technology))));
     if (matches.length) return answerProjects(matches);
     return {
       text: `I don't find a project documenting ${technologies.map(({ name }) => name).join(', ')} in the portfolio. You can browse the project list for documented work.`,
@@ -97,7 +139,7 @@ export function getChatbotReply(input, knowledge) {
 
   if (isProjectQuestion(query) || matchesAny(query, ['project', 'projects'])) {
     if (isBroadProjectQuestion(query) || findUnknownProject(query).length === 0) {
-      return answerProjects(knowledge.projects, 'Here are the projects currently documented in the portfolio:');
+      return answerProjects(resolvedKnowledge.projects, 'Here are the projects currently documented in the portfolio:');
     }
     const requestedName = findUnknownProject(query);
     return {
@@ -107,47 +149,48 @@ export function getChatbotReply(input, knowledge) {
   }
 
   if (matchesAny(query, ['education', 'qualification', 'qualifications', 'degree', 'diploma', 'university', 'college', 'study', 'studied', 'experience', 'background'])) {
-    const education = knowledge.profile.education
+    const education = (resolvedKnowledge.profile.education || [])
       .map(({ qualification, institution, year }) => `${qualification}, ${institution}${year ? ` (${year})` : ''}`)
       .join('\n');
-    return { text: `${knowledge.profile.background}\nEducation: ${education}\nExperience: ${knowledge.profile.experience}`, links: [] };
+    return { text: `${resolvedKnowledge.profile.background}\nEducation: ${education}\nExperience: ${resolvedKnowledge.profile.experience}`, links: [] };
   }
 
   if (matchesAny(query, ['cv', 'resume', 'curriculum vitae', 'download resume', 'download cv'])) {
-    const link = safeLink(knowledge.links.cv);
+    const link = safeLink(resolvedKnowledge.links.cv);
     return link
       ? { text: 'You can download my CV here.', links: [link] }
       : { text: 'The CV download link has not been configured yet.', links: [] };
   }
 
   if (matchesAny(query, ['linkedin', 'linked in'])) {
-    const link = safeLink(knowledge.links.linkedIn);
+    const link = safeLink(resolvedKnowledge.links.linkedIn);
     return link
       ? { text: 'My LinkedIn profile is available here.', links: [link] }
       : { text: 'The LinkedIn profile link has not been configured yet.', links: [] };
   }
 
   if (matchesAny(query, ['github', 'git hub', 'repository', 'repositories', 'source code', 'source'])) {
-    const link = safeLink(knowledge.links.github);
+    const link = safeLink(resolvedKnowledge.links.github);
     return link
       ? { text: 'You can find my public profile and repositories on GitHub.', links: [link] }
       : { text: 'The GitHub profile link has not been configured yet.', links: [] };
   }
 
   if (matchesAny(query, ['contact', 'email', 'reach', 'get in touch', 'how can i contact', 'contact details'])) {
-    const emailLink = safeLink(knowledge.links.email);
-    const linkedIn = safeLink(knowledge.links.linkedIn);
+    const emailLink = safeLink(resolvedKnowledge.links.email);
+    const linkedIn = safeLink(resolvedKnowledge.links.linkedIn);
+    const emailAddress = resolvedKnowledge.links.email?.address || 'the portfolio contact address';
     return {
-      text: `You can contact me at ${knowledge.links.email.address}.`,
+      text: `You can contact me at ${emailAddress}.`,
       links: linksFrom(emailLink, linkedIn)
     };
   }
 
   if (matchesAny(query, ['language', 'languages', 'programming language', 'programming languages'])) {
-    return { text: `The portfolio lists these programming languages and web fundamentals: ${knowledge.languages.join(', ')}.`, links: [] };
+    return { text: `The portfolio lists these programming languages and web fundamentals: ${(resolvedKnowledge.languages || []).join(', ')}.`, links: [] };
   }
 
-  const requestedGroups = knowledge.skills.filter(({ category }) => {
+  const requestedGroups = (resolvedKnowledge.skills || []).filter(({ category }) => {
     const key = normalise(category);
     if (key === 'frontend') return matchesAny(query, ['frontend', 'front end', 'client side', 'interface']);
     if (key === 'backend') return matchesAny(query, ['backend', 'back end', 'server side', 'server']);
@@ -162,12 +205,12 @@ export function getChatbotReply(input, knowledge) {
   }
 
   if (technologies.length > 0) {
-    const requestedGroups = technologies.flatMap(({ name }) => skillsForTechnology(name, knowledge));
+    const requestedGroups = technologies.flatMap(({ name }) => skillsForTechnology(name, resolvedKnowledge));
     const uniqueGroups = [...new Map(requestedGroups.map((group) => [group.category, group])).values()];
-    const reportedSkills = uniqueGroups.length ? uniqueGroups : knowledge.skills
-      .map(({ category, items }) => ({ category, items: items.filter((item) => technologies.some(({ name }) => normalise(name) === normalise(item))) }))
+    const reportedSkills = uniqueGroups.length ? uniqueGroups : (resolvedKnowledge.skills || [])
+      .map(({ category, items = [] }) => ({ category, items: items.filter((item) => technologies.some(({ name }) => normalise(name) === normalise(item))) }))
       .filter(({ items }) => items.length > 0);
-    const projectMatches = knowledge.projects.filter((project) => project.technologies.some((item) => technologies.some(({ name }) => normalise(name) === normalise(item))));
+    const projectMatches = (resolvedKnowledge.projects || []).filter((project) => (project.technologies || []).some((item) => technologies.some(({ name }) => normalise(name) === normalise(item))));
     if (reportedSkills.length) {
       const relatedProjects = projectMatches.length ? `\nProjects listing these technologies: ${projectMatches.map(({ name }) => name).join(', ')}.` : '';
       return { text: `These documented skills include ${technologies.map(({ name }) => name).join(', ')}:\n${formatSkills(reportedSkills)}.${relatedProjects}`, links: linksFrom(projectMatches.map(projectLinks)) };
@@ -176,11 +219,11 @@ export function getChatbotReply(input, knowledge) {
   }
 
   if (matchesAny(query, ['skill', 'skills', 'technology', 'technologies', 'framework', 'frameworks', 'stack', 'what can you do'])) {
-    return { text: `Here are my documented technical skills:\n${formatSkills(knowledge.skills)}`, links: [] };
+    return { text: `Here are my documented technical skills:\n${formatSkills(resolvedKnowledge.skills)}`, links: [] };
   }
 
   if (matchesAny(query, ['name', 'who are you', 'who is abram', 'about you', 'your background', 'introduce yourself'])) {
-    return { text: `${knowledge.profile.name} is a ${knowledge.profile.role}. ${knowledge.profile.background}`, links: [] };
+    return { text: `${resolvedKnowledge.profile.name} is a ${resolvedKnowledge.profile.role}. ${resolvedKnowledge.profile.background}`, links: [] };
   }
 
   return {

@@ -71,3 +71,13 @@ test('normalises punctuation and safely rejects unsafe links', () => {
   assert.match(getChatbotReply('  WHICH   PROJECTS USE React? ', knowledge).text, /AnimeWear/);
   assert.deepEqual(getChatbotReply('Can I view your CV?', { ...knowledge, links: { ...knowledge.links, cv: { label: 'CV', href: 'javascript:alert(1)' } } }).links, []);
 });
+
+test('returns a safe fallback when knowledge is missing or incomplete', () => {
+  const fallback = getChatbotReply('Can I contact you?', null);
+  assert.match(fallback.text, /rule-based portfolio helper|Please enter a question/);
+  assert.deepEqual(fallback.links, []);
+
+  const partial = getChatbotReply('Which projects use React?', { skills: [], languages: [], projects: [], technologyAliases: [], links: {} });
+  assert.match(partial.text, /I don't find a project documenting React|rule-based portfolio helper|Here are the matching documented projects/);
+  assert.ok(Array.isArray(partial.links));
+});
