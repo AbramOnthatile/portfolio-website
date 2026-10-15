@@ -139,7 +139,7 @@ p { color: var(--muted); line-height: 1.75; }
 .art-window-body { position: relative; height: calc(100% - 24px); }
 .art-orbit { position: absolute; top: 16%; left: 30%; width: 38%; aspect-ratio: 1; border: 1px solid rgba(99, 209, 231, 0.45); border-radius: 50%; box-shadow: inset 0 0 25px rgba(99, 209, 231, 0.1), 0 0 18px rgba(99, 209, 231, 0.08); }
 .art-orbit::after { position: absolute; inset: 24%; border-radius: 50%; background: rgba(99, 209, 231, 0.54); content: ''; filter: blur(8px); }
-.art-signal { position: absolute; left: 14%; width: 67%; height: 1px; background: linear-gradient(90deg, transparent, rgba(99, 209, 231, 0.72), transparent); }
+.art-signal-line { position: absolute; left: 14%; width: 67%; height: 1px; background: linear-gradient(90deg, transparent, rgba(99, 209, 231, 0.72), transparent); }
 .art-signal-one { top: 28%; }
 .art-signal-two { top: 50%; opacity: 0.48; }
 .art-signal-three { top: 72%; opacity: 0.25; }

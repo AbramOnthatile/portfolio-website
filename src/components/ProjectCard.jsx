@@ -10,9 +10,9 @@ export default function ProjectCard({ project }) {
           <div className="art-window-head"><i /><i /><i /></div>
           <div className="art-window-body">
             <span className="art-orbit" />
-            <span className="art-signal art-signal-one" />
-            <span className="art-signal art-signal-two" />
-            <span className="art-signal art-signal-three" />
+            <span className="art-signal-line art-signal-one" />
+            <span className="art-signal-line art-signal-two" />
+            <span className="art-signal-line art-signal-three" />
           </div>
         </div>
         <span className="art-index">{project.slug.toUpperCase()}</span>

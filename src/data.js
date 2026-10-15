@@ -49,7 +49,7 @@ export const projects = [
     process: 'Combined frontend design with backend logic so product data, user actions, and store features work together coherently.',
     challenge: 'Keeping the storefront attractive and functional while maintaining consistent flows between the UI and backend data.',
     learned: 'I strengthened my understanding of e-commerce architecture, user-flow design, and full-stack application behavior.',
-    repository: 'https://github.com/NinziSiganeko/animestore.git'
+    repository: 'https://github.com/AbramOnthatile/animestore.git'
   },
   {
     slug: 'hoodline',
@@ -112,24 +112,6 @@ export const projects = [
     demo: 'https://pathfinder-oput7928.manus.space/'
   },
   {
-    slug: 'product-review',
-    name: 'Product Review Intelligence',
-    badge: 'AI / DATA',
-    art: 'analytics',
-    summary: 'A review-analysis workflow for identifying customer sentiment, recurring themes, and product feedback.',
-    categories: ['ai', 'web', 'frontend'],
-    technologies: ['Python', 'Sentiment Analysis', 'AI Insights', 'JavaScript', 'Product Feedback'],
-    overview: 'Product Review Intelligence helps users understand customer sentiment and product feedback by turning review data into a usable, actionable summary.',
-    role: 'I focused on building the review-analysis workflow, shaping the product experience, and presenting sentiment insights clearly.',
-    developed: 'An analysis experience for reviewing sentiment trends, identifying common feedback themes, and understanding customer comments faster.',
-    problem: 'Review collections are noisy and difficult to turn into actionable product feedback, especially across many comments.',
-    solution: 'A structured review-analysis workflow interprets feedback, identifies patterns, and presents sentiment insights in a clear format.',
-    features: ['Customer review analysis', 'Sentiment classification', 'Product feedback extraction', 'Insight-focused interface'],
-    process: 'Moved from review collection to interpretation and presentation through a simple product view and practical application structure.',
-    challenge: 'Filtering and interpreting varied product comments into meaningful summaries required clear presentation of results.',
-    learned: 'I strengthened my ability to work with feedback data, extract patterns, and present results usefully.'
-  },
-  {
     slug: 'spam-detect',
     name: 'Spam Detect',
     badge: 'MACHINE LEARNING',
@@ -187,10 +169,10 @@ export const projects = [
     name: 'Sudoku Game',
     badge: 'GAME LOGIC',
     art: 'grid',
-    summary: 'A Java puzzle game focused on board rules, move validation, and a playable solving flow.',
+    summary: 'A Python Sudoku solver focused on board validation and logical puzzle solving.',
     categories: ['backend', 'frontend'],
-    technologies: ['Java', 'Puzzle Logic', 'Game Development', 'UI Interaction'],
-    overview: 'A Java-based puzzle project built around classic logic and board validation, demonstrating structured game development and problem-solving.',
+    technologies: ['Python', 'Puzzle Logic', 'Game Development', 'Board Validation'],
+    overview: 'A Python-based Sudoku project that validates boards and solves puzzles using logical algorithms.',
     role: 'I contributed to implementing the core puzzle logic, validating board rules, and creating a playable experience.',
     developed: 'The gameplay structure, including number placement rules, validation logic, and a playable board flow.',
     problem: 'Games require precise rules and reliable logic so every action is valid and gameplay remains consistent.',
@@ -198,7 +180,7 @@ export const projects = [
     features: ['Sudoku board and number logic', 'Move validation rules', 'Playable puzzle flow', 'Interactive game structure'],
     process: 'Translated Sudoku rules into code, built the board mechanics, and checked that the game logic behaved consistently.',
     challenge: 'Ensuring each move followed the correct row, column, and subsection rules.',
-    learned: 'I improved my understanding of game logic, rule validation, and structured Java applications.',
+    learned: 'I improved my understanding of game logic, rule validation, and structured Python applications.',
     repository: 'https://github.com/AbramOnthatile/soduko.git'
   },
   {
@@ -206,10 +188,10 @@ export const projects = [
     name: 'UNO Game',
     badge: 'GAME LOGIC',
     art: 'cards',
-    summary: 'A Java card game implementing turn progression, card rules, and consistent game-state behavior.',
+    summary: 'A Python card game implementing turn progression, card rules, and consistent game-state behavior.',
     categories: ['backend', 'frontend'],
-    technologies: ['Java', 'Game Logic', 'Card Mechanics', 'Turn System'],
-    overview: 'A Java-based card game built to replicate familiar gameplay rules and turn-based interactions in a structured form.',
+    technologies: ['Python', 'Game Logic', 'Card Mechanics', 'Turn System'],
+    overview: 'A Python-based card game built to replicate familiar gameplay rules and turn-based interactions in a structured form.',
     role: 'I worked on the game logic and interaction flow, shaping a playable version of card mechanics and turn progression.',
     developed: 'The card-game flow, including turn handling, rule enforcement, and logic for smooth player interaction.',
     problem: 'Card games need consistent rules and clear turns to feel fair and playable when multiple actions are involved.',
