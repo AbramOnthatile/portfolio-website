@@ -25,7 +25,7 @@ const knowledge = {
   ],
   projects: [
     { name: 'AnimeWear / Anime Store', slug: 'animewear', aliases: ['animewear', 'anime store'], description: 'A full-stack online store.', technologies: ['React', 'Spring Boot', 'MySQL'], repository: 'https://github.com/example/animewear', detailUrl: '#/projects/animewear' },
-    { name: 'SentiX — AI Sentiment Intelligence', slug: 'sentix', aliases: ['sentix'], description: 'A review analysis project.', technologies: ['Python', 'Sentiment Analysis'], repository: null, detailUrl: '#/projects/sentix' }
+    { name: 'AI Kitchen Recipe Generator', slug: 'ai-kitchen-recipe-generator', aliases: ['ai kitchen', 'kitchenchef'], description: 'An AI cooking assistant that creates recipes from ingredients on hand.', technologies: ['React', 'TypeScript'], repository: null, detailUrl: '#/projects/ai-kitchen-recipe-generator' }
   ],
   links: {
     cv: { label: 'Download CV', href: 'https://example.com/cv.pdf' },
@@ -45,14 +45,14 @@ test('answers general skills and programming language questions', () => {
 test('filters projects by framework before general skill matching', () => {
   const reply = getChatbotReply('Which projects use Spring Boot?', knowledge);
   assert.match(reply.text, /AnimeWear/);
-  assert.doesNotMatch(reply.text, /SentiX/);
+  assert.doesNotMatch(reply.text, /AI Kitchen/);
   assert.equal(reply.links.some(({ label }) => label === 'GitHub repository'), true);
 });
 
 test('answers project details and reports undocumented projects', () => {
-  assert.match(getChatbotReply('Tell me about SentiX', knowledge).text, /review analysis project/);
+  assert.match(getChatbotReply('Tell me about KitchenChef', knowledge).text, /AI cooking assistant/);
   assert.match(getChatbotReply('Tell me about the MoonBase project', knowledge).text, /don't find a project/);
-  assert.match(getChatbotReply('Tell me about your projects', knowledge).text, /AnimeWear.*SentiX/s);
+  assert.match(getChatbotReply('Tell me about your projects', knowledge).text, /AnimeWear.*AI Kitchen Recipe Generator/s);
 });
 
 test('provides CV and published contact links only when configured', () => {

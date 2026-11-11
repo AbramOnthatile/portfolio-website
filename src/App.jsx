@@ -48,7 +48,7 @@ function TechnologyChips({ items }) {
 }
 
 function HomePage() {
-  const featuredProjects = ['sentix', 'unidigital', 'pathfinder-ai'].map((slug) => projects.find((project) => project.slug === slug));
+  const featuredProjects = ['ai-kitchen-recipe-generator', 'unidigital', 'pathfinder-ai'].map((slug) => projects.find((project) => project.slug === slug));
 
   return (
     <>

@@ -72,26 +72,6 @@ export const projects = [
     demo: 'https://hoodlinelocal.netlify.app/'
   },
   {
-    slug: 'sentix',
-    name: 'SentiX — AI Sentiment Intelligence',
-    badge: 'AI / NLP',
-    art: 'sentiment',
-    summary: 'An AI-powered review analysis experience that turns customer feedback into clear sentiment and product insight.',
-    categories: ['ai', 'web', 'frontend', 'fullstack'],
-    technologies: ['Python', 'AI', 'Sentiment Analysis', 'JavaScript', 'HTML', 'CSS'],
-    overview: 'SentiX is an AI-powered sentiment analysis project designed to turn customer reviews into clear, useful insights and help users identify meaningful feedback patterns.',
-    role: 'I shaped the user-facing review-analysis experience, structured the workflow, and focused on making AI output clear and practical.',
-    developed: 'A review-analysis interface for exploring sentiment, identifying recurring themes, and interpreting customer feedback in an accessible way.',
-    problem: 'Businesses receive large volumes of customer feedback, but extracting sentiment and actionable themes from raw reviews is difficult and time-consuming.',
-    solution: 'An AI-informed workflow processes review data, identifies sentiment patterns, and helps users understand relevant feedback more quickly.',
-    features: ['Review-based sentiment analysis', 'Feedback and theme interpretation', 'Insight-oriented dashboard presentation', 'AI-assisted review understanding'],
-    process: 'Translated a business problem into a working web interface, designed the interaction model, and presented key insights clearly.',
-    challenge: 'Turning unstructured review content into meaningful insight without overloading users with complex data.',
-    learned: 'I strengthened my understanding of AI-driven product design, frontend interaction patterns, and turning review data into usable outputs.',
-    repository: 'https://github.com/cherish-n27/SentiX',
-    demo: 'https://sentix-kohl.vercel.app/'
-  },
-  {
     slug: 'pathfinder-ai',
     name: 'PathFinder AI',
     badge: 'AI PRODUCT',
