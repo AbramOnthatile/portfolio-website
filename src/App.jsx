@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Alert, Badge, Button, Card, Col, Container, Modal, Nav, Row, Toast, ToastContainer } from 'react-bootstrap';
+import { Badge, Button, Card, Col, Container, Modal, Row, Toast, ToastContainer } from 'react-bootstrap';
+import { ArrowDown, ArrowRight, ArrowUpRight, BrainCircuit, BriefcaseBusiness, Code2, Database, Download, GitBranch, GraduationCap, LayoutTemplate, Mail, MapPin, Server, Workflow } from 'lucide-react';
 import { Link, Route, Routes, useLocation, useParams } from 'react-router-dom';
-import ContactForm from './components/ContactForm.jsx';
 import ChatbotWidget from './components/ChatbotWidget.jsx';
+import ContactForm from './components/ContactForm.jsx';
+import DeveloperTerminal from './components/DeveloperTerminal.jsx';
+import FrameworkCard from './components/FrameworkCard.jsx';
 import ProjectCard from './components/ProjectCard.jsx';
 import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader from './components/SiteHeader.jsx';
 import { ToastContext } from './components/ToastContext.jsx';
-import { certificates, cvFile, profileImage, projects, skillGroups } from './data.js';
+import { certificates, cvFile, frameworkGroups, profileImage, projects, showcasedProjects, skillGroups } from './data.js';
 
 const pageTitles = {
   '/': 'Abram Mohlamonyane | Software Developer',
@@ -23,19 +26,17 @@ function RouteEffects() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const project = pathname.startsWith('/projects/')
-      ? projects.find((item) => pathname.endsWith(item.slug))
-      : null;
-    document.title = project ? `${project.name} | Abram Mohlamonyane` : pageTitles[pathname] || 'Portfolio | Abram Mohlamonyane';
+    const project = pathname.startsWith('/projects/') ? projects.find((item) => pathname.endsWith(item.slug)) : null;
+    document.title = project ? `${project.name} | Abram Onthatile Mohlamonyane` : pageTitles[pathname] || 'TECHNOVERSE | Abram Mohlamonyane';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [pathname]);
 
   return null;
 }
 
-function PageHeading({ eyebrow, title, description, compact = false }) {
+function PageHeading({ eyebrow, title, description }) {
   return (
-    <header className={`page-heading${compact ? ' page-heading-compact' : ''}`}>
+    <header className="page-heading">
       <p className="eyebrow"><span />{eyebrow}</p>
       <h1>{title}</h1>
       {description && <p className="page-lede">{description}</p>}
@@ -47,75 +48,72 @@ function TechnologyChips({ items }) {
   return <div className="tech-tags">{items.map((item) => <Badge bg="transparent" className="tech-tag" key={item}>{item}</Badge>)}</div>;
 }
 
-function HomePage() {
-  const featuredProjects = ['ai-kitchen-recipe-generator', 'unidigital', 'pathfinder-ai'].map((slug) => projects.find((project) => project.slug === slug));
+const skillIcons = {
+  code: Code2,
+  layout: LayoutTemplate,
+  server: Server,
+  database: Database,
+  workflow: Workflow,
+  sparkles: BrainCircuit
+};
 
+function HomePage() {
   return (
     <>
-      <section className="home-hero">
+      <section className="home-hero" id="home">
         <Container>
-          <Row className="align-items-center gy-5">
+          <div className="hero-topline"><span>TECHNOVERSE <i>/</i> THE DEVELOPER&apos;S DIGITAL SPACE</span><span className="availability"><i /> OPEN TO OPPORTUNITIES</span></div>
+          <Row className="align-items-center gy-5 hero-grid">
             <Col lg={7} className="hero-copy">
-              <div className="availability"><span className="availability-dot" /> Open to software opportunities</div>
-              <p className="hero-overline">Software developer · Cape Town, South Africa</p>
-              <h1>Building useful software,<br /><span>from interface to intelligence.</span></h1>
-              <p className="hero-summary">I’m Abram, an ICT Application Development graduate creating dependable full-stack products and thoughtful AI experiences.</p>
-              <div className="d-flex flex-wrap gap-3 hero-actions">
-                <Button as={Link} to="/projects" className="button-primary">Explore my work <i className="bi bi-arrow-up-right ms-2" aria-hidden="true" /></Button>
-                <Button as={Link} to="/contact" variant="outline-light" className="button-outline">Get in touch <i className="bi bi-chat-dots ms-2" aria-hidden="true" /></Button>
+              <p className="hero-overline"><span /> SOFTWARE DEVELOPER · CAPE TOWN, ZA</p>
+              <h1>Hello, I&apos;m<br /><span>Abram.</span></h1>
+              <p className="hero-role">Backend &amp; Full-Stack Development</p>
+              <p className="hero-summary">I&apos;m an ICT Application Development graduate who enjoys building dependable web applications, thoughtful backend systems, and software that solves practical problems.</p>
+              <div className="hero-actions">
+                <Button as={Link} to="/projects" className="button-primary">View projects <ArrowRight size={17} /></Button>
+                <Button href={cvFile} download className="button-outline">Download CV <Download size={16} /></Button>
+                <Button as={Link} to="/contact" variant="link" className="hero-contact-link">Contact me <ArrowUpRight size={16} /></Button>
               </div>
-              <div className="hero-skills" aria-label="Areas of focus">
-                <span>Full-stack</span><span>Applied AI</span><span>Product-minded</span>
-              </div>
+              <div className="hero-stack"><span>BUILDING WITH</span><b>Java</b><i /><b>Spring Boot</b><i /><b>React</b><i /><b>Python</b></div>
             </Col>
             <Col lg={5}>
-              <div className="portrait-stage">
-                <div className="portrait-coordinate">AOM / SOFTWARE ENGINEERING</div>
-                <div className="portrait-frame">
-                  <img src={profileImage} alt="Abram Onthatile Mohlamonyane" />
-                </div>
-                <div className="portrait-caption"><span className="caption-mark">01</span><span>Thoughtful systems.<br />Clear experiences.</span><i className="bi bi-arrow-down-right" aria-hidden="true" /></div>
-                <span className="portrait-axis portrait-axis-x" /><span className="portrait-axis portrait-axis-y" />
+              <div className="hero-visual">
+                <div className="hero-image-frame"><img src={profileImage} alt="Abram Onthatile Mohlamonyane" fetchPriority="high" /></div>
+                <div className="hero-image-label"><span>ABRAM ONTHATILE MOHLAMONYANE</span><span>SOFTWARE / 01</span></div>
+                <div className="hero-location"><MapPin size={14} /> Cape Town, South Africa</div>
+                <DeveloperTerminal />
               </div>
             </Col>
           </Row>
-          <div className="hero-baseline row g-0">
-            <div className="col-sm-4"><span>01</span> Product thinking</div>
-            <div className="col-sm-4"><span>02</span> Full-stack delivery</div>
-            <div className="col-sm-4"><span>03</span> Responsible AI</div>
-          </div>
+          <a className="hero-scroll" href="#selected-work"><span>SCROLL TO EXPLORE</span><ArrowDown size={15} /></a>
         </Container>
       </section>
 
-      <section className="section-block">
+      <section className="section-block selected-work" id="selected-work">
         <Container>
-          <div className="section-intro d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3">
-            <div><p className="eyebrow"><span /> Selected work</p><h2>Projects with a purpose.</h2></div>
-            <Button as={Link} to="/projects" variant="link" className="text-link">All projects <i className="bi bi-arrow-right" aria-hidden="true" /></Button>
-          </div>
-          <Row className="g-4">
-            {featuredProjects.map((project) => <Col md={6} xl={4} key={project.slug}><ProjectCard project={project} /></Col>)}
-          </Row>
+          <div className="section-intro"><div><p className="eyebrow"><span /> SELECTED WORK / 03</p><h2>Software built<br /><em>for real people.</em></h2></div><p className="section-aside">A selection of live products across commerce, career guidance, and applied AI.</p></div>
+          <Row className="g-4 project-list">{showcasedProjects.map((project, index) => <Col md={6} xl={4} key={project.slug}><ProjectCard project={project} index={index} /></Col>)}</Row>
+          <div className="section-endnote"><span>01 — 03</span><span>SELECTED PROJECTS</span><Link to="/projects">Explore the work <ArrowUpRight size={15} /></Link></div>
         </Container>
       </section>
 
-      <section className="capability-band">
-        <Container>
-          <Row className="gy-4 align-items-start">
-            <Col lg={4}>
-              <p className="eyebrow"><span /> How I work</p>
-              <h2>Build with clarity.<br />Ship with care.</h2>
-            </Col>
-            <Col lg={8}>
-              <Row className="g-4">
-                <Col sm={4}><div className="capability-item"><i className="bi bi-layers" aria-hidden="true" /><h3>Product to platform</h3><p>From usable interfaces to APIs and data flows, I think across the whole product.</p></div></Col>
-                <Col sm={4}><div className="capability-item"><i className="bi bi-cpu" aria-hidden="true" /><h3>Practical AI</h3><p>Machine learning and automation should make real tasks clearer and more useful.</p></div></Col>
-                <Col sm={4}><div className="capability-item"><i className="bi bi-check2-circle" aria-hidden="true" /><h3>Reliable details</h3><p>Accessible interactions, considered edge cases, and maintainable implementation matter.</p></div></Col>
-              </Row>
-            </Col>
-          </Row>
+      <section className="about-band">
+        <Container><Row className="g-5 align-items-start"><Col lg={4}><p className="eyebrow"><span /> A LITTLE ABOUT ME</p><h2>Curiosity,<br />with a <em>purpose.</em></h2></Col><Col lg={8}><p className="about-lede">I&apos;m a software developer and ICT Application Development graduate from Cape Peninsula University of Technology.</p><p className="about-copy">I like working where product thinking meets engineering: understanding the problem, shaping a clear user flow, and building the systems that make it work. My project experience spans web applications, APIs, data, and backend development.</p><Link className="text-link" to="/about">More about Abram <ArrowRight size={16} /></Link></Col></Row></Container>
+      </section>
+
+      <section className="section-block skills-preview">
+        <Container><div className="section-intro"><div><p className="eyebrow"><span /> TECHNICAL TOOLKIT</p><h2>Tools for the<br /><em>whole stack.</em></h2></div><Link className="text-link" to="/skills">View all skills <ArrowRight size={16} /></Link></div>
+          <Row className="g-3">{skillGroups.slice(0, 4).map((group) => { const Icon = skillIcons[group.icon]; return <Col sm={6} xl={3} key={group.name}><div className="skill-preview-item"><Icon size={20} /><span>{group.name}</span><strong>{group.items.slice(0, 3).join(' · ')}</strong></div></Col>; })}</Row>
         </Container>
       </section>
+
+      <section className="journey-band">
+        <Container><div className="section-intro"><div><p className="eyebrow"><span /> EDUCATION &amp; EXPERIENCE</p><h2>Grounded in learning.<br /><em>Proven in projects.</em></h2></div><Link className="text-link" to="/cv">View CV <ArrowUpRight size={15} /></Link></div>
+          <div className="journey-list"><article className="journey-item"><div className="journey-marker"><GraduationCap size={19} /></div><div><span className="journey-date">2025 · EDUCATION</span><h3>Diploma in ICT Application Development</h3><p>Cape Peninsula University of Technology</p></div><span className="journey-index">01</span></article><article className="journey-item"><div className="journey-marker"><BriefcaseBusiness size={19} /></div><div><span className="journey-date">PROJECT-BASED EXPERIENCE</span><h3>Applied software development</h3><p>Hands-on work across web applications, backend systems, APIs, databases, and AI-related projects.</p></div><span className="journey-index">02</span></article></div>
+        </Container>
+      </section>
+
+      <section className="contact-cta"><Container><div><p className="eyebrow"><span /> NEXT UP</p><h2>Have a good problem<br />to <em>solve together?</em></h2></div><Button as={Link} to="/contact" className="button-primary">Start a conversation <ArrowUpRight size={17} /></Button></Container></section>
     </>
   );
 }
@@ -123,76 +121,51 @@ function HomePage() {
 function AboutPage() {
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="About" title={<>A practical developer,<br /><span>curious by design.</span></>} description="I enjoy taking a real problem, understanding the people behind it, and building software that makes the next step easier." />
-      <Row className="g-4 align-items-stretch about-layout">
-        <Col lg={7}>
-          <Card className="content-panel h-100"><Card.Body>
-            <p className="panel-index">PROFILE / 001</p>
-            <h2>From a software idea to a usable product.</h2>
-            <p>I am an ICT Application Development graduate from Cape Peninsula University of Technology with hands-on experience building web applications, backend systems, APIs, databases, and AI-related projects.</p>
-            <p>I enjoy turning ideas into working software and continuously improving my development skills through practical projects. My focus is on dependable digital solutions that are practical, user-friendly, and technically solid.</p>
-            <div className="about-focus"><span>Currently focused on</span><strong>Full-stack engineering · Applied AI · Product quality</strong></div>
-          </Card.Body></Card>
-        </Col>
-        <Col lg={5}>
-          <Card className="content-panel facts-panel h-100"><Card.Body>
-            <p className="panel-index">AT A GLANCE / 002</p>
-            <dl className="fact-list">
-              <div><dt>Education</dt><dd>Diploma in ICT Application Development</dd></div>
-              <div><dt>Institution</dt><dd>Cape Peninsula University of Technology</dd></div>
-              <div><dt>Development journey</dt><dd>Bootcamp projects and applied learning</dd></div>
-              <div><dt>Enjoy building</dt><dd>Web apps, APIs, backend systems, AI features</dd></div>
-            </dl>
-            <Button as={Link} to="/cv" variant="link" className="text-link p-0">View my CV <i className="bi bi-arrow-right" aria-hidden="true" /></Button>
-          </Card.Body></Card>
-        </Col>
-      </Row>
-      <section className="page-section">
-        <div className="section-intro"><p className="eyebrow"><span /> Principles</p><h2>What I bring to the work.</h2></div>
-        <Row className="g-3">
-          {[
-            ['01', 'Stay curious', 'Keep learning through practical work and thoughtful iteration.'],
-            ['02', 'Make it usable', 'Treat accessibility, clarity, and user flow as core engineering concerns.'],
-            ['03', 'Solve the right thing', 'Ground implementation choices in the problem the product needs to solve.']
-          ].map(([number, title, description]) => <Col md={4} key={number}><div className="principle-panel"><span>{number}</span><h3>{title}</h3><p>{description}</p></div></Col>)}
-        </Row>
-      </section>
+      <PageHeading eyebrow="TECHNOVERSE / ABOUT" title={<>A practical developer,<br /><span>curious by design.</span></>} description="I enjoy taking a real problem, understanding the people behind it, and building software that makes the next step easier." />
+      <Row className="g-5 about-layout"><Col lg={7}><div className="about-prose"><p className="panel-index">PROFILE / 001</p><h2>From software idea<br />to usable product.</h2><p>I am an ICT Application Development graduate from Cape Peninsula University of Technology. I&apos;m interested in software development, backend systems, web applications, and solving real-world problems through technology.</p><p>Across project work, I&apos;ve explored product flows, application logic, APIs, databases, and AI-related features. I value clear communication, reliable implementation, and learning through building.</p><div className="about-focus"><span>AREAS OF INTEREST</span><strong>Backend engineering · Full-stack products · Applied AI</strong></div></div></Col><Col lg={5}><div className="about-facts"><p className="panel-index">AT A GLANCE / 002</p><dl className="fact-list"><div><dt>Education</dt><dd>Diploma in ICT Application Development</dd></div><div><dt>Institution</dt><dd>Cape Peninsula University of Technology</dd></div><div><dt>Location</dt><dd>Cape Town, South Africa</dd></div><div><dt>Experience</dt><dd>Project-based software development</dd></div></dl><Button as={Link} to="/cv" variant="link" className="text-link p-0">View my CV <ArrowRight size={16} /></Button></div></Col></Row>
+      <section className="page-section"><div className="section-intro"><div><p className="eyebrow"><span /> EDUCATION &amp; EXPERIENCE</p><h2>A learning journey in practice.</h2></div></div><div className="journey-list"><article className="journey-item"><div className="journey-marker"><GraduationCap size={19} /></div><div><span className="journey-date">2025 · EDUCATION</span><h3>Diploma in ICT Application Development</h3><p>Cape Peninsula University of Technology</p></div><span className="journey-index">01</span></article><article className="journey-item"><div className="journey-marker"><BriefcaseBusiness size={19} /></div><div><span className="journey-date">PROJECT-BASED EXPERIENCE</span><h3>Applied software development</h3><p>Practical work across full-stack applications, backend systems, APIs, databases, and AI-related projects.</p></div><span className="journey-index">02</span></article></div></section>
+      <section className="page-section"><div className="section-intro"><div><p className="eyebrow"><span /> PRINCIPLES</p><h2>What I bring to the work.</h2></div></div><Row className="g-3">{[['01', 'Stay curious', 'Keep learning through practical work and thoughtful iteration.'], ['02', 'Make it usable', 'Treat accessibility, clarity, and user flow as core engineering concerns.'], ['03', 'Solve the right thing', 'Ground implementation choices in the problem the product needs to solve.']].map(([number, title, description]) => <Col md={4} key={number}><div className="principle-panel"><span>{number}</span><h3>{title}</h3><p>{description}</p></div></Col>)}</Row></section>
     </Container>
   );
 }
 
 function ProjectsPage() {
   const [filter, setFilter] = useState('all');
-  const filters = [
-    ['all', 'All work'], ['ai', 'AI & data'], ['fullstack', 'Full-stack'], ['web', 'Web'], ['backend', 'Backend'], ['frontend', 'Frontend']
-  ];
-  const filtered = filter === 'all' ? projects : projects.filter((project) => project.categories.includes(filter));
+  const filters = [['all', 'All projects'], ['ai', 'Applied AI'], ['fullstack', 'Full-stack'], ['web', 'Web']];
+  const filtered = filter === 'all' ? showcasedProjects : showcasedProjects.filter((project) => project.categories.includes(filter));
 
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="Portfolio" title={<>Selected work<span>.</span></>} description="A cross-section of software projects spanning full-stack products, applied AI, data workflows, and game logic." />
-      <div className="filter-row" role="group" aria-label="Filter projects">
-        {filters.map(([value, label]) => <Button key={value} type="button" className={`filter-chip${filter === value ? ' active' : ''}`} onClick={() => setFilter(value)} aria-pressed={filter === value}>{label}</Button>)}
-        <span className="filter-count ms-md-auto">{filtered.length} projects</span>
-      </div>
-      {filtered.length > 0 ? <Row className="g-4 project-list">{filtered.map((project) => <Col md={6} xl={4} key={project.slug}><ProjectCard project={project} /></Col>)}</Row> : <Alert variant="dark" className="empty-state">No projects match that category.</Alert>}
+      <PageHeading eyebrow="TECHNOVERSE / SELECTED WORK" title={<>A few things<br /><span>I&apos;ve built.</span></>} description="Three live projects across commerce, career guidance, and applied AI. Each one starts with a practical problem and a focus on making the experience work." />
+      <div className="filter-row" role="group" aria-label="Filter projects">{filters.map(([value, label]) => <Button key={value} type="button" className={`filter-chip${filter === value ? ' active' : ''}`} onClick={() => setFilter(value)} aria-pressed={filter === value}>{label}</Button>)}<span className="filter-count ms-md-auto">{filtered.length} projects</span></div>
+      <Row className="g-4 project-list">{filtered.map((project, index) => <Col md={6} xl={4} key={project.slug}><ProjectCard project={project} index={index} /></Col>)}</Row>
     </Container>
   );
 }
 
 function SkillsPage() {
+  const frameworkNames = new Set(frameworkGroups.flatMap(({ items }) => items.map(({ name }) => name.toLocaleLowerCase())));
+  const coreSkillGroups = skillGroups
+    .filter(({ name }) => !['Frontend development', 'Backend development'].includes(name))
+    .map((group) => ({ ...group, items: group.items.filter((item) => !frameworkNames.has(item.toLocaleLowerCase())) }))
+    .filter(({ items }) => items.length > 0);
+
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="Capabilities" title={<>Tools I use to<br /><span>make things work.</span></>} description="A practical toolkit built across coursework, collaborative projects, and hands-on application development." />
-      <Row className="g-3 skills-list">
-        {skillGroups.map((group, index) => <Col md={6} xl={4} key={group.name}>
-          <Card className="skill-card h-100"><Card.Body>
-            <div className="skill-card-head"><span className="skill-icon"><i className={`bi ${group.icon}`} aria-hidden="true" /></span><span className="skill-number">0{index + 1}</span></div>
-            <h2>{group.name}</h2>
-            <TechnologyChips items={group.items} />
-          </Card.Body></Card>
-        </Col>)}
-      </Row>
+      <PageHeading eyebrow="TECHNOVERSE / TOOLKIT" title={<>The tools I use<br /><span>to make things work.</span></>} description="Frameworks, libraries, languages, and tools from my software development experience." />
+      <section className="frameworks-section" aria-labelledby="frameworks-heading">
+        <div className="skills-section-heading"><div><p className="eyebrow"><span /> FRAMEWORKS &amp; LIBRARIES</p><h2 id="frameworks-heading">Frameworks &amp; Libraries</h2></div><span className="skills-section-count">13 TECHNOLOGIES</span></div>
+        {frameworkGroups.map((group) => (
+          <section className="framework-category" key={group.name} aria-labelledby={`framework-${group.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`}>
+            <div className="framework-category-heading"><div><h3 id={`framework-${group.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`}>{group.name}</h3><p>{group.description}</p></div><span>{String(group.items.length).padStart(2, '0')}</span></div>
+            <Row className="g-3">{group.items.map((technology) => <Col sm={6} xl={4} key={technology.name}><FrameworkCard technology={technology} /></Col>)}</Row>
+          </section>
+        ))}
+      </section>
+      <section className="core-skills-section" aria-labelledby="core-skills-heading">
+        <div className="skills-section-heading"><div><p className="eyebrow"><span /> CORE SKILLS</p><h2 id="core-skills-heading">Languages &amp; practice</h2></div></div>
+        <Row className="g-3 skills-list">{coreSkillGroups.map((group, index) => { const Icon = skillIcons[group.icon] || Code2; return <Col md={6} xl={3} key={group.name}><Card className="skill-card h-100"><Card.Body><div className="skill-card-head"><span className="skill-icon"><Icon size={20} /></span><span className="skill-number">0{index + 1}</span></div><h3>{group.name}</h3><TechnologyChips items={group.items} /></Card.Body></Card></Col>; })}</Row>
+      </section>
     </Container>
   );
 }
@@ -202,26 +175,9 @@ function CertificatesPage() {
 
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="Learning record" title={<>Credentials &amp;<br /><span>continued learning.</span></>} description="Formal education and focused learning in software development, data, and artificial intelligence." />
-      <Row className="g-3 certificate-list">
-        {certificates.map((certificate, index) => <Col md={6} xl={4} key={certificate.file}>
-          <Card className="certificate-card h-100"><Card.Body className="d-flex flex-column">
-            <div className="certificate-topline"><span>{certificate.type}</span><span>0{index + 1}</span></div>
-            <div className="certificate-icon"><i className="bi bi-award" aria-hidden="true" /></div>
-            <h2>{certificate.title}</h2>
-            <p className="certificate-organisation">{certificate.organisation}</p>
-            <p className="certificate-detail">{certificate.detail}</p>
-            <div className="certificate-actions mt-auto">
-              <Button type="button" variant="link" className="text-link p-0" onClick={() => setSelected(certificate)}>View certificate <i className="bi bi-arrow-up-right" aria-hidden="true" /></Button>
-              <a href={certificate.url} download={certificate.file} aria-label={`Download ${certificate.title}`}><i className="bi bi-download" aria-hidden="true" /></a>
-            </div>
-          </Card.Body></Card>
-        </Col>)}
-      </Row>
-      <Modal show={Boolean(selected)} onHide={() => setSelected(null)} centered size="xl" contentClassName="certificate-modal-content">
-        <Modal.Header closeButton><Modal.Title>{selected?.title}</Modal.Title></Modal.Header>
-        <Modal.Body className="certificate-preview">{selected && <iframe title={`${selected.title} preview`} src={selected.url} />}</Modal.Body>
-      </Modal>
+      <PageHeading eyebrow="TECHNOVERSE / LEARNING RECORD" title={<>Credentials &amp;<br /><span>continued learning.</span></>} description="Formal education and focused learning in software development, data, and artificial intelligence." />
+      <Row className="g-3 certificate-list">{certificates.map((certificate, index) => <Col md={6} xl={4} key={certificate.file}><Card className="certificate-card h-100"><Card.Body className="d-flex flex-column"><div className="certificate-topline"><span>{certificate.type}</span><span>0{index + 1}</span></div><div className="certificate-icon"><GraduationCap size={21} /></div><h2>{certificate.title}</h2><p className="certificate-organisation">{certificate.organisation}</p><p className="certificate-detail">{certificate.detail}</p><div className="certificate-actions mt-auto"><Button type="button" variant="link" className="text-link p-0" onClick={() => setSelected(certificate)}>View certificate <ArrowUpRight size={15} /></Button><a href={certificate.url} download={certificate.file} aria-label={`Download ${certificate.title}`}><Download size={15} /></a></div></Card.Body></Card></Col>)}</Row>
+      <Modal show={Boolean(selected)} onHide={() => setSelected(null)} centered size="xl" contentClassName="certificate-modal-content"><Modal.Header closeButton><Modal.Title>{selected?.title}</Modal.Title></Modal.Header><Modal.Body className="certificate-preview">{selected && <iframe title={`${selected.title} preview`} src={selected.url} />}</Modal.Body></Modal>
     </Container>
   );
 }
@@ -229,29 +185,9 @@ function CertificatesPage() {
 function CvPage() {
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="Curriculum vitae" title={<>Ready to contribute.<br /><span>Built to keep learning.</span></>} description="A concise overview of my background, technical focus, and approach to building useful software." />
-      <Row className="g-3 cv-grid">
-        <Col lg={7}><Card className="content-panel h-100"><Card.Body>
-          <p className="panel-index">PROFILE / SUMMARY</p><h2>Professional profile</h2>
-          <p>Junior Software Developer with a Diploma in ICT Application Development and a strong interest in full-stack development, AI-powered solutions, and practical digital products.</p>
-          <ul className="cv-points">
-            <li>Focused on building user-friendly web applications and backend systems</li>
-            <li>Experienced in front-end design, data handling, application logic, and API integration</li>
-            <li>Comfortable with HTML, CSS, JavaScript, Java, Python, and SQL</li>
-            <li>Motivated by clean code, strong problem-solving, and real-world impact</li>
-          </ul>
-        </Card.Body></Card></Col>
-        <Col lg={5}><Card className="content-panel h-100"><Card.Body>
-          <p className="panel-index">TOOLKIT / SELECTED</p><h2>Technical skills</h2>
-          <TechnologyChips items={['HTML', 'CSS', 'JavaScript', 'React', 'Java', 'Spring Boot', 'Python', 'SQL', 'AI', 'APIs', 'UX', 'Problem solving']} />
-          <hr className="panel-rule" />
-          <p className="education-kicker">Education</p><h3>Diploma in ICT Application Development</h3><p className="mb-0">Cape Peninsula University of Technology · 2025</p>
-        </Card.Body></Card></Col>
-      </Row>
-      <div className="cv-actions">
-        <Button href={cvFile} download className="button-primary">Download CV <i className="bi bi-download ms-2" aria-hidden="true" /></Button>
-        <Button as={Link} to="/contact" variant="outline-light" className="button-outline">Contact me <i className="bi bi-arrow-up-right ms-2" aria-hidden="true" /></Button>
-      </div>
+      <PageHeading eyebrow="TECHNOVERSE / CURRICULUM VITAE" title={<>Ready to contribute.<br /><span>Built to keep learning.</span></>} description="A concise overview of my background, technical focus, and approach to building useful software." />
+      <Row className="g-3 cv-grid"><Col lg={7}><Card className="content-panel h-100"><Card.Body><p className="panel-index">PROFILE / SUMMARY</p><h2>Professional profile</h2><p>Junior Software Developer and ICT Application Development graduate with a strong interest in backend and full-stack development, AI-powered solutions, and practical digital products.</p><ul className="cv-points"><li>Building user-focused web applications and backend systems</li><li>Project experience with application logic, data handling, and API integration</li><li>Working knowledge of Java, JavaScript, Python, PHP, and SQL</li><li>Motivated by clean code, problem-solving, and real-world impact</li></ul></Card.Body></Card></Col><Col lg={5}><Card className="content-panel h-100"><Card.Body><p className="panel-index">EDUCATION / 2025</p><h2>Academic background</h2><p className="education-kicker">Cape Peninsula University of Technology</p><h3>Diploma in ICT Application Development</h3><hr className="panel-rule" /><p className="panel-index">TECHNOLOGY / SELECTED</p><TechnologyChips items={['Java', 'Spring Boot', 'JavaScript', 'React', 'Python', 'PHP', 'MySQL', 'Git', 'REST APIs']} /></Card.Body></Card></Col></Row>
+      <div className="cv-actions"><Button href={cvFile} download className="button-primary">Download CV <Download size={16} /></Button><Button as={Link} to="/contact" variant="outline-light" className="button-outline">Contact me <ArrowUpRight size={16} /></Button></div>
     </Container>
   );
 }
@@ -259,18 +195,8 @@ function CvPage() {
 function ContactPage() {
   return (
     <Container className="page-container">
-      <PageHeading eyebrow="Contact" title={<>Let’s make something<br /><span>useful together.</span></>} description="Have an opportunity, project, or technical problem in mind? Send me a note and I’ll get back to you." />
-      <Row className="g-4 contact-layout">
-        <Col lg={7}><Card className="contact-panel"><Card.Body><div className="panel-index">SEND A MESSAGE / 001</div><ContactForm /></Card.Body></Card></Col>
-        <Col lg={5}>
-          <div className="contact-aside">
-            <p className="eyebrow"><span /> Direct channels</p><h2>Good conversations start with a clear brief.</h2>
-            <a className="contact-social" href="https://www.linkedin.com/in/onthatile-mohlamonyane" target="_blank" rel="noreferrer"><span className="social-icon"><i className="bi bi-linkedin" aria-hidden="true" /></span><span><small>Professional profile</small><strong>Connect on LinkedIn</strong></span><i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
-            <a className="contact-social" href="https://github.com/abramonthatile" target="_blank" rel="noreferrer"><span className="social-icon"><i className="bi bi-github" aria-hidden="true" /></span><span><small>Projects and code</small><strong>Explore GitHub</strong></span><i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
-            <div className="contact-note"><i className="bi bi-clock" aria-hidden="true" /><span>Messages submitted here stay on this page. You’ll see a confirmation after the service accepts the request.</span></div>
-          </div>
-        </Col>
-      </Row>
+      <PageHeading eyebrow="TECHNOVERSE / CONTACT" title={<>Let&apos;s make something<br /><span>useful together.</span></>} description="Have an opportunity, a project, or a technical problem in mind? I&apos;d be glad to hear about it." />
+      <Row className="g-4 contact-layout"><Col lg={7}><Card className="contact-panel"><Card.Body><div className="panel-index">SEND A MESSAGE / 001</div><ContactForm /></Card.Body></Card></Col><Col lg={5}><div className="contact-aside"><p className="eyebrow"><span /> DIRECT CHANNELS</p><h2>Good conversations start with a clear brief.</h2><a className="contact-social" href="mailto:onthatileabram@gmail.com"><span className="social-icon"><Mail size={18} /></span><span><small>EMAIL</small><strong>onthatileabram@gmail.com</strong></span><ArrowUpRight size={16} /></a><a className="contact-social" href="https://www.linkedin.com/in/onthatile-mohlamonyane" target="_blank" rel="noreferrer"><span className="social-icon"><i className="bi bi-linkedin" aria-hidden="true" /></span><span><small>PROFESSIONAL PROFILE</small><strong>Connect on LinkedIn</strong></span><ArrowUpRight size={16} /></a><a className="contact-social" href="https://github.com/abramonthatile" target="_blank" rel="noreferrer"><span className="social-icon"><GitBranch size={18} /></span><span><small>PROJECTS &amp; CODE</small><strong>Explore GitHub</strong></span><ArrowUpRight size={16} /></a><p className="contact-note">The form uses the existing email delivery service. You&apos;ll see a confirmation after it accepts your message.</p></div></Col></Row>
     </Container>
   );
 }
@@ -278,82 +204,45 @@ function ContactPage() {
 function ProjectDetailPage() {
   const { slug } = useParams();
   const project = projects.find((item) => item.slug === slug);
-
   if (!project) return <NotFoundPage />;
 
-  const story = [
-    ['Problem', project.problem],
-    ['Approach', project.solution],
-    ['What I developed', project.developed],
-    ['Process', project.process],
-    ['Challenge', project.challenge],
-    ['What I learned', project.learned]
-  ].filter(([, content]) => content);
+  const story = [['Problem', project.problem], ['Approach', project.solution], ['What I developed', project.developed], ['Process', project.process], ['Challenge', project.challenge], ['What I learned', project.learned]].filter(([, content]) => content);
 
   return (
     <Container className="page-container project-detail-page">
-      <Link to="/projects" className="back-link"><i className="bi bi-arrow-left" aria-hidden="true" /> All projects</Link>
-      <div className="detail-heading">
-        <div><p className="eyebrow"><span /> Project / {project.badge}</p><h1>{project.name}</h1><p className="page-lede">{project.summary}</p></div>
-        <div className="detail-links">
-          {project.repository && <Button href={project.repository} target="_blank" rel="noreferrer" className="button-outline">GitHub <i className="bi bi-arrow-up-right ms-2" aria-hidden="true" /></Button>}
-          {project.demo && <Button href={project.demo} target="_blank" rel="noreferrer" className="button-primary">Live demo <i className="bi bi-arrow-up-right ms-2" aria-hidden="true" /></Button>}
-        </div>
-      </div>
-      <div className={`detail-art project-art art-${project.art}`} aria-hidden="true"><div className="art-topline"><span>AB / CASE STUDY</span><span>{project.badge}</span></div><div className="detail-art-label">{project.name}</div><div className="detail-art-index">{project.slug.toUpperCase()}</div></div>
-      <Row className="g-4 detail-content">
-        <Col lg={4}>
-          <Card className="detail-sidecard"><Card.Body>
-            <p className="panel-index">PROJECT SNAPSHOT</p><h2>Technologies</h2><TechnologyChips items={project.technologies} />
-            <hr className="panel-rule" /><p className="education-kicker">My role</p><p className="mb-0">{project.role}</p>
-          </Card.Body></Card>
-        </Col>
-        <Col lg={8}>
-          <Card className="content-panel overview-panel"><Card.Body><p className="panel-index">OVERVIEW / 01</p><h2>Project overview</h2><p>{project.overview}</p>
-            {project.features?.length > 0 && <><h3 className="feature-heading">Key features</h3><ul className="feature-list">{project.features.map((feature) => <li key={feature}><i className="bi bi-check2" aria-hidden="true" />{feature}</li>)}</ul></>}
-          </Card.Body></Card>
-          <Row className="g-3 mt-1">
-            {story.map(([title, content], index) => <Col md={6} key={title}><Card className="story-card h-100"><Card.Body><span className="story-index">0{index + 2}</span><h3>{title}</h3><p>{content}</p></Card.Body></Card></Col>)}
-          </Row>
-        </Col>
-      </Row>
+      <Link to="/projects" className="back-link"><ArrowRight size={16} /> All selected work</Link>
+      <div className="detail-heading"><div><p className="eyebrow"><span /> PROJECT / {project.badge}</p><h1>{project.name}</h1><p className="page-lede">{project.summary}</p></div><div className="detail-links">{project.repository && <Button href={project.repository} target="_blank" rel="noreferrer" className="button-outline"><GitBranch size={16} /> GitHub <ArrowUpRight size={15} /></Button>}{project.demo && <Button href={project.demo} target="_blank" rel="noreferrer" className="button-primary">Live demo <ArrowUpRight size={15} /></Button>}</div></div>
+      <ProjectCard project={project} index={0} visualOnly />
+      <Row className="g-4 detail-content"><Col lg={4}><Card className="detail-sidecard"><Card.Body><p className="panel-index">PROJECT SNAPSHOT</p><h2>Technologies</h2><TechnologyChips items={project.technologies} /><hr className="panel-rule" /><p className="education-kicker">My role</p><p className="mb-0">{project.role}</p></Card.Body></Card></Col><Col lg={8}><Card className="content-panel overview-panel"><Card.Body><p className="panel-index">OVERVIEW / 01</p><h2>Project overview</h2><p>{project.overview}</p>{project.features?.length > 0 && <><h3 className="feature-heading">Key features</h3><ul className="feature-list">{project.features.map((feature) => <li key={feature}><span>+</span>{feature}</li>)}</ul></>}</Card.Body></Card><Row className="g-3 mt-1">{story.map(([title, content], index) => <Col md={6} key={title}><Card className="story-card h-100"><Card.Body><span className="story-index">0{index + 2}</span><h3>{title}</h3><p>{content}</p></Card.Body></Card></Col>)}</Row></Col></Row>
     </Container>
   );
 }
 
 function NotFoundPage() {
-  return <Container className="page-container not-found"><p className="eyebrow"><span /> 404 / Not found</p><h1>This page isn’t in the map.</h1><p className="page-lede">The page may have moved, but the rest of the portfolio is right here.</p><Button as={Link} to="/" className="button-primary">Return home <i className="bi bi-arrow-right ms-2" aria-hidden="true" /></Button></Container>;
+  return <Container className="page-container not-found"><p className="eyebrow"><span /> 404 / NOT FOUND</p><h1>This page isn&apos;t in the map.</h1><p className="page-lede">The page may have moved, but the rest of the portfolio is right here.</p><Button as={Link} to="/" className="button-primary">Return home <ArrowRight size={16} /></Button></Container>;
 }
 
 export default function App() {
   const [notice, setNotice] = useState('');
+  const [theme, setTheme] = useState(() => localStorage.getItem('portfolio-theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
 
   return (
     <ToastContext.Provider value={setNotice}>
-      <div className="app-shell">
+      <div className="app-shell" data-theme={theme}>
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <SiteHeader />
+        <SiteHeader theme={theme} onThemeToggle={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
         <RouteEffects />
         <main id="main-content" tabIndex={-1}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-            <Route path="/skills" element={<SkillsPage />} />
-            <Route path="/certificates" element={<CertificatesPage />} />
-            <Route path="/cv" element={<CvPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <Routes><Route path="/" element={<HomePage />} /><Route path="/about" element={<AboutPage />} /><Route path="/projects" element={<ProjectsPage />} /><Route path="/projects/:slug" element={<ProjectDetailPage />} /><Route path="/skills" element={<SkillsPage />} /><Route path="/certificates" element={<CertificatesPage />} /><Route path="/cv" element={<CvPage />} /><Route path="/contact" element={<ContactPage />} /><Route path="*" element={<NotFoundPage />} /></Routes>
         </main>
         <SiteFooter />
         <ChatbotWidget />
-        <ToastContainer className="portfolio-toasts" position="bottom-end" containerPosition="fixed">
-          <Toast show={Boolean(notice)} onClose={() => setNotice('')} delay={3200} autohide>
-            <Toast.Body><i className="bi bi-info-circle me-2" aria-hidden="true" />{notice}</Toast.Body>
-          </Toast>
-        </ToastContainer>
+        <ToastContainer className="portfolio-toasts" position="bottom-end" containerPosition="fixed"><Toast show={Boolean(notice)} onClose={() => setNotice('')} delay={3200} autohide><Toast.Body><i className="bi bi-info-circle me-2" aria-hidden="true" />{notice}</Toast.Body></Toast></ToastContainer>
       </div>
     </ToastContext.Provider>
   );

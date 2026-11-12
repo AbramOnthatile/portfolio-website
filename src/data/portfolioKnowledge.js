@@ -1,4 +1,4 @@
-import { cvFile, projects, skillGroups } from '../data.js';
+import { cvFile, showcasedProjects, skillGroups } from '../data.js';
 
 const profile = {
   name: 'Abram Onthatile Mohlamonyane',
@@ -18,7 +18,7 @@ export const portfolioKnowledge = {
   profile,
   skills: skillGroups.map(({ name, items }) => ({ category: name, items })),
   languages: ['HTML', 'CSS', 'JavaScript', 'Java', 'Python'],
-  projects: projects.map((project) => ({
+  projects: showcasedProjects.map((project) => ({
     name: project.name,
     slug: project.slug,
     aliases: [...new Set([project.slug, ...project.name.split(/[—/]/).map((name) => name.trim())])],
@@ -39,12 +39,15 @@ export const portfolioKnowledge = {
     { name: 'Bootstrap', aliases: ['bootstrap', 'bootstrap 5'] },
     { name: 'Django', aliases: ['django'] },
     { name: 'Flask', aliases: ['flask'] },
+    { name: 'Laravel', aliases: ['laravel'] },
+    { name: 'Express.js', aliases: ['express', 'express js'] },
+    { name: 'Node.js', aliases: ['node', 'node js'] },
+    { name: 'Material UI', aliases: ['material ui', 'mui'] },
     { name: 'MySQL', aliases: ['mysql'] },
     { name: 'PostgreSQL', aliases: ['postgresql', 'postgres'] },
     { name: 'MongoDB', aliases: ['mongodb', 'mongo'] },
     { name: 'SQLite', aliases: ['sqlite'] },
     { name: 'Machine Learning', aliases: ['machine learning', 'ml'] },
-    { name: 'Sentiment Analysis', aliases: ['sentiment analysis', 'sentiment'] },
     { name: 'REST APIs', aliases: ['rest api', 'rest apis', 'api', 'apis'] },
     { name: 'SQL', aliases: ['sql'] },
     { name: 'NFC', aliases: ['nfc'] },

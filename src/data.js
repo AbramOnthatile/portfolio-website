@@ -88,7 +88,7 @@ export const projects = [
     process: 'Identified a user need, designed a usable interaction, implemented the concept, and refined the product around the experience.',
     challenge: 'Balancing technical capability with simplicity so the AI flow stayed useful and understandable.',
     learned: 'I gained a stronger understanding of shaping AI tools around user problems and communicating product value clearly.',
-    repository: 'https://github.com/AbramOnthatile/Path_Finder.git',
+    repository: 'https://github.com/AbramOnthatile/pathfinder',
     demo: 'https://pathfinder-oput7928.manus.space/'
   },
   {
@@ -127,7 +127,7 @@ export const projects = [
     process: 'Built the interface around a short ingredient-and-preference flow, then used structured AI output for consistent recipe details and a second image-generation step based on each recipe.',
     challenge: 'Keeping generated recipes useful and consistent while respecting ingredient, dietary, meal-type, and time constraints, then creating an image that matches the dish.',
     learned: 'I strengthened my experience with structured AI responses, server-side AI integrations, image generation, and designing practical end-to-end product workflows.',
-    repository: 'https://github.com/AbramOnthatile/pixel-perfect-replay-017.git',
+    repository: 'https://github.com/AbramOnthatile/AI-Kitchen-Recipe-Generator',
     demo: 'https://pixel-perfect-replay-017.lovable.app/'
   },
   {
@@ -184,13 +184,49 @@ export const projects = [
   }
 ];
 
+export const showcasedProjects = projects.filter(({ slug }) => ['hoodline', 'pathfinder-ai', 'ai-kitchen-recipe-generator'].includes(slug));
+
 export const skillGroups = [
-  { name: 'Frontend', icon: 'bi-window', items: ['HTML', 'CSS', 'JavaScript', 'React', 'Bootstrap'] },
-  { name: 'Backend', icon: 'bi-hdd-network', items: ['Java', 'Spring Boot', 'Python', 'Django', 'Flask'] },
-  { name: 'Databases', icon: 'bi-database', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'SQLite'] },
-  { name: 'AI & Data', icon: 'bi-cpu', items: ['Python', 'Machine Learning', 'Sentiment Analysis', 'Data Handling'] },
-  { name: 'Workflow', icon: 'bi-diagram-3', items: ['Git', 'GitHub', 'REST APIs', 'UI/UX'] },
-  { name: 'Core strengths', icon: 'bi-lightning-charge', items: ['Problem solving', 'Clean code', 'Debugging', 'Learning'] }
+  { name: 'Programming languages', icon: 'code', items: ['Java', 'JavaScript', 'Python', 'PHP'] },
+  { name: 'Frontend development', icon: 'layout', items: ['HTML', 'CSS', 'React', 'Bootstrap', 'Material UI'] },
+  { name: 'Backend development', icon: 'server', items: ['Spring Boot', 'Django', 'Flask', 'Laravel', 'Express.js', 'Node.js', 'REST APIs'] },
+  { name: 'Databases', icon: 'database', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'SQLite'] },
+  { name: 'Tools & technologies', icon: 'workflow', items: ['Git', 'GitHub', 'Vite', 'NFC', 'Tailwind CSS'] },
+  { name: 'Data & product skills', icon: 'sparkles', items: ['Machine Learning', 'Generative AI', 'Data Handling', 'UI/UX'] }
+];
+
+export const frameworkGroups = [
+  {
+    name: 'Backend Frameworks',
+    description: 'Server-side frameworks and runtime tools for building web applications and APIs.',
+    items: [
+      { name: 'Spring Boot', icon: 'springboot', description: 'Java framework for production-ready services and APIs.' },
+      { name: 'Django', icon: 'django', description: 'Python framework for building full-featured web applications.' },
+      { name: 'Flask', icon: 'flask', description: 'Lightweight Python framework for web apps and APIs.' },
+      { name: 'Laravel', icon: 'laravel', description: 'PHP framework for web application development.' },
+      { name: 'Express.js', icon: 'express', description: 'Minimal web framework for Node.js.' },
+      { name: 'Node.js', icon: 'nodedotjs', description: 'JavaScript runtime for server-side applications.' }
+    ]
+  },
+  {
+    name: 'Frontend Frameworks & Libraries',
+    description: 'Component systems and interface tools for responsive web experiences.',
+    items: [
+      { name: 'React', icon: 'react', description: 'JavaScript library for building component-based interfaces.' },
+      { name: 'Bootstrap', icon: 'bootstrap', description: 'Responsive CSS framework with a reusable component system.' },
+      { name: 'Material UI (MUI)', icon: 'mui', description: 'React component library implementing Material Design.' }
+    ]
+  },
+  {
+    name: 'Other Technologies',
+    description: 'Core web standards and everyday development tools.',
+    items: [
+      { name: 'HTML5', icon: 'html5', description: 'Markup standard for structuring web content.' },
+      { name: 'CSS3', icon: 'css', description: 'Style-sheet technology for layout and visual presentation.' },
+      { name: 'Git', icon: 'git', description: 'Distributed version control for tracking source changes.' },
+      { name: 'GitHub', icon: 'github', description: 'Platform for hosting and collaborating on Git repositories.' }
+    ]
+  }
 ];
 
 export const certificates = [

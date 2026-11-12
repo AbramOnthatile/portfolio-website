@@ -658,7 +658,7 @@ p {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.visual-sentix {
+.visual-feature {
   background:
     linear-gradient(135deg, rgba(6, 17, 31, 0.5), rgba(17, 69, 94, 0.3)),
     radial-gradient(circle at 20% 20%, rgba(68, 166, 255, 0.35), transparent 35%),

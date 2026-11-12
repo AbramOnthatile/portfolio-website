@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { ArrowUpRight } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
+
+const ThemeControl = lazy(() => import('./ThemeControl.jsx'));
 
 const links = [
   { label: 'Home', to: '/', end: true },
@@ -11,7 +14,7 @@ const links = [
   { label: 'CV', to: '/cv' }
 ];
 
-export default function SiteHeader() {
+export default function SiteHeader({ theme = 'dark', onThemeToggle = () => {} }) {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -25,9 +28,9 @@ export default function SiteHeader() {
   return (
     <Navbar expand="lg" className={`site-nav ${scrolled ? 'is-scrolled' : ''}`} sticky="top">
       <Container>
-        <Navbar.Brand href="#/" aria-label="Abram Mohlamonyane home" className="brand-lockup">
-          <span className="brand-monogram">A</span>
-          <span>Abram<span className="brand-period">.</span></span>
+        <Navbar.Brand as={NavLink} to="/" aria-label="TECHNOVERSE, Abram Mohlamonyane home" className="brand-lockup">
+          <span className="brand-monogram">T<span>.</span></span>
+          <span className="brand-copy"><strong>TECHNOVERSE</strong><small>ABRAM / DEVELOPER</small></span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="portfolio-navigation" aria-label="Toggle navigation" />
         <Navbar.Collapse id="portfolio-navigation">
@@ -43,13 +46,14 @@ export default function SiteHeader() {
                 {label}
               </NavLink>
             ))}
+            <Suspense fallback={null}><ThemeControl theme={theme} onThemeToggle={onThemeToggle} /></Suspense>
             <Nav.Link
               as={NavLink}
               to="/contact"
               className={`nav-contact${location.pathname === '/contact' ? ' active' : ''}`}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              Let&apos;s talk <i className="bi bi-arrow-up-right" aria-hidden="true" />
+              Let&apos;s talk <ArrowUpRight size={15} aria-hidden="true" />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
